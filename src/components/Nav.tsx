@@ -13,10 +13,7 @@ export function Nav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#" className="font-semibold text-foreground">
-          DF
-        </a>
+      <div className="mx-auto flex max-w-4xl items-center justify-end px-4 py-3 sm:px-6">
         <ul className="flex items-center gap-6">
           {links.map(({ href, label }) => (
             <li key={href}>
