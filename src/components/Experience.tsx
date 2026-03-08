@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { experience } from '../data/experience'
 import { site } from '../data/site'
+import { getTimelineImageUrl } from '../lib/logo'
 
 const INTRO =
   "Throughout my career, I've taken on different roles that have shaped my skills and perspective. Each position brought new challenges and learning experiences."
@@ -16,6 +17,9 @@ function TimelineEntry({
   isExpanded: boolean
   onToggle: () => void
 }) {
+  const [imgError, setImgError] = useState(false)
+  const imageUrl = getTimelineImageUrl(entry.logoUrl)
+  const showImage = imageUrl && !imgError
   const initial = entry.company.slice(0, 2).toUpperCase()
   const displayRole = entry.role || entry.company
   const displayCompany = entry.role ? entry.company : ''
@@ -26,10 +30,19 @@ function TimelineEntry({
       {/* Timeline line + node */}
       <div className="relative flex shrink-0 flex-col items-center">
         <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border-2 border-border bg-[var(--bg-elevated)] text-xs font-semibold text-muted"
+          className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border-2 border-border bg-[var(--bg-elevated)] text-xs font-semibold text-muted"
           aria-hidden
         >
-          {initial}
+          {showImage ? (
+            <img
+              src={imageUrl}
+              alt=""
+              className="h-full w-full object-contain p-0.5"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            initial
+          )}
         </div>
         {!isLast && (
           <div

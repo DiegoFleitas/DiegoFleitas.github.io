@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { education } from '../data/education'
+import { getTimelineImageUrl } from '../lib/logo'
 
 const INTRO =
   'Formal education and certifications that built the foundation for my work in software development.'
@@ -15,6 +16,9 @@ function TimelineEntry({
   isExpanded: boolean
   onToggle: () => void
 }) {
+  const [imgError, setImgError] = useState(false)
+  const imageUrl = getTimelineImageUrl(entry.logoUrl)
+  const showImage = imageUrl && !imgError
   const initial = entry.institution.slice(0, 2).toUpperCase()
   const hasDetails = entry.bullets && entry.bullets.length > 0
 
@@ -23,10 +27,19 @@ function TimelineEntry({
       {/* Timeline: circle node + line (distinct from Experience’s rounded square) */}
       <div className="relative flex shrink-0 flex-col items-center">
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-border bg-[var(--bg-elevated)] text-[10px] font-semibold text-muted"
+          className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-border bg-[var(--bg-elevated)] text-[10px] font-semibold text-muted"
           aria-hidden
         >
-          {initial}
+          {showImage ? (
+            <img
+              src={imageUrl}
+              alt=""
+              className="h-full w-full object-contain p-0.5"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            initial
+          )}
         </div>
         {!isLast && (
           <div
