@@ -18,10 +18,4 @@ export const projects: Project[] = [
       'Movie streaming search and country-level availability (JustWatch clone); watchlist ingestion tool with JustWatch API integration for streaming availability lookup.',
     repoUrl: 'https://github.com/DiegoFleitas/letterboxd-movie-justwatch',
   },
-  {
-    title: 'censor-pdf-demo-poc',
-    description:
-      'Browser-based OCR redaction pipeline using Tesseract.js for text recognition; PDF parsing and manipulation for automated document censorship.',
-    repoUrl: 'https://github.com/DiegoFleitas/censor-pdf-demo-poc',
-  },
 ]
