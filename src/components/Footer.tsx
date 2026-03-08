@@ -10,10 +10,10 @@ export function Footer() {
           © {year} {site.name}
         </span>
         <div className="flex gap-6">
-          <a href={`mailto:${site.email}`} className="hover:text-neutral-700">
+          <a href={`mailto:${site.email}`} className="hover:text-neutral-300 transition-colors">
             Email
           </a>
-          <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-700">
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-300 transition-colors">
             GitHub
           </a>
         </div>

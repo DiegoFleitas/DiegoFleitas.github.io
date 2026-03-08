@@ -5,7 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        surface: 'var(--bg)',
+        'surface-elevated': 'var(--bg-elevated)',
+        border: 'var(--border)',
+        muted: 'var(--text-muted)',
+      },
+      fontFamily: {
+        sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #0d0d0d;
+    --bg-elevated: #141414;
+    --border: #262626;
+    --text: #fafafa;
+    --text-muted: #a3a3a3;
+    --accent: #e5e5e5;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--bg);
+  }
+}
