@@ -1,41 +1,36 @@
 import { useState } from 'react'
-import { experience } from '../data/experience'
-import { site } from '../data/site'
+import { education } from '../data/education'
 
 const INTRO =
-  "Throughout my career, I've taken on different roles that have shaped my skills and perspective. Each position brought new challenges and learning experiences."
+  'Formal education and certifications that built the foundation for my work in software development.'
 
 function TimelineEntry({
   entry,
-  index,
   isLast,
   isExpanded,
   onToggle,
 }: {
-  entry: (typeof experience)[0]
-  index: number
+  entry: (typeof education)[0]
   isLast: boolean
   isExpanded: boolean
   onToggle: () => void
 }) {
-  const initial = entry.company.slice(0, 2).toUpperCase()
-  const displayRole = entry.role || entry.company
-  const displayCompany = entry.role ? entry.company : ''
-  const hasDetails = entry.bullets.length > 0
+  const initial = entry.institution.slice(0, 2).toUpperCase()
+  const hasDetails = entry.bullets && entry.bullets.length > 0
 
   return (
     <li className="relative flex gap-4 sm:gap-6">
-      {/* Timeline line + node */}
+      {/* Timeline: circle node + line (distinct from Experience’s rounded square) */}
       <div className="relative flex shrink-0 flex-col items-center">
         <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border-2 border-border bg-[var(--bg-elevated)] text-xs font-semibold text-muted"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-border bg-[var(--bg-elevated)] text-[10px] font-semibold text-muted"
           aria-hidden
         >
           {initial}
         </div>
         {!isLast && (
           <div
-            className="absolute top-10 left-1/2 w-0.5 -translate-x-1/2 bg-border"
+            className="absolute top-9 left-1/2 w-0.5 -translate-x-1/2 bg-border"
             style={{ height: 'calc(100% + 1rem)' }}
             aria-hidden
           />
@@ -47,16 +42,12 @@ function TimelineEntry({
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
             <p className="text-base font-bold text-foreground sm:text-lg">
-              {displayRole}
+              {entry.degree}
             </p>
-            {displayCompany && (
-              <p className="text-sm text-muted">{displayCompany}</p>
-            )}
+            <p className="text-sm text-muted">{entry.institution}</p>
             <p className="mt-1 text-xs text-muted">
               {entry.date}
-              {entry.duration && entry.duration.toLowerCase() !== 'present'
-                ? ` · ${entry.duration}`
-                : ''}
+              {entry.duration ? ` · ${entry.duration}` : ''}
             </p>
             {entry.location && (
               <p className="mt-0.5 text-xs text-muted">{entry.location}</p>
@@ -70,7 +61,7 @@ function TimelineEntry({
               aria-expanded={isExpanded}
               aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
             >
-              {isExpanded ? 'Less' : `${entry.bullets.length} details · More`}
+              {isExpanded ? 'Less' : `${entry.bullets!.length} details · More`}
             </button>
           )}
         </div>
@@ -82,7 +73,7 @@ function TimelineEntry({
           >
             <div className="overflow-hidden">
               <ul className="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted">
-                {entry.bullets.map((bullet, j) => (
+                {entry.bullets!.map((bullet, j) => (
                   <li key={j} className="leading-relaxed">
                     {bullet}
                   </li>
@@ -96,40 +87,25 @@ function TimelineEntry({
   )
 }
 
-export function Experience() {
+export function Education() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
   return (
     <section
-      id="experience"
+      id="education"
       className="scroll-mt-20 border-b border-border px-4 py-14 sm:px-6 sm:py-20"
     >
       <div className="mx-auto max-w-3xl">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-            Experience
-          </h2>
-          {site.cvPdfUrl && (
-            <a
-              href={site.cvPdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
-            >
-              Download CV →
-            </a>
-          )}
-        </div>
-        <p className="mt-3 text-sm text-muted sm:text-base">
-          {INTRO}
-        </p>
+        <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
+          Education
+        </h2>
+        <p className="mt-3 text-sm text-muted sm:text-base">{INTRO}</p>
         <ul className="mt-8 list-none">
-          {experience.map((entry, i) => (
+          {education.map((entry, i) => (
             <TimelineEntry
               key={i}
               entry={entry}
-              index={i}
-              isLast={i === experience.length - 1}
+              isLast={i === education.length - 1}
               isExpanded={expandedIndex === i}
               onToggle={() =>
                 setExpandedIndex((prev) => (prev === i ? null : i))
