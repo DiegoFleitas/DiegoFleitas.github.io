@@ -7,13 +7,11 @@ const INTRO =
 
 function TimelineEntry({
   entry,
-  index,
   isLast,
   isExpanded,
   onToggle,
 }: {
   entry: (typeof experience)[0]
-  index: number
   isLast: boolean
   isExpanded: boolean
   onToggle: () => void
@@ -128,7 +126,6 @@ export function Experience() {
             <TimelineEntry
               key={i}
               entry={entry}
-              index={i}
               isLast={i === experience.length - 1}
               isExpanded={expandedIndex === i}
               onToggle={() =>
