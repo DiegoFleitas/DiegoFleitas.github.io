@@ -5,8 +5,8 @@ Personal portfolio site. Built with React, TypeScript, Vite, and Tailwind CSS.
 ## Local development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173).
