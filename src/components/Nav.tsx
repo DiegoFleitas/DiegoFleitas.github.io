@@ -1,3 +1,5 @@
+import { useTheme } from '../context/ThemeContext'
+
 const links = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
@@ -6,23 +8,39 @@ const links = [
 ]
 
 export function Nav() {
+  const { theme, setTheme } = useTheme()
+
   return (
-    <nav className="sticky top-0 z-50 border-b border-neutral-800/80 bg-[#0d0d0d]/90 backdrop-blur supports-[backdrop-filter]:bg-[#0d0d0d]/80">
+    <nav className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#" className="font-semibold text-white">
+        <a href="#" className="font-semibold text-foreground">
           DF
         </a>
-        <ul className="flex gap-6">
+        <ul className="flex items-center gap-6">
           {links.map(({ href, label }) => (
             <li key={href}>
               <a
                 href={href}
-                className="text-sm font-medium text-neutral-400 hover:text-white transition-colors"
+                className="text-sm font-medium text-muted hover:text-foreground transition-colors"
               >
                 {label}
               </a>
             </li>
           ))}
+          <li>
+            <button
+              type="button"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="rounded-lg p-2 text-muted hover:bg-surface-elevated hover:text-foreground transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? (
+                <span className="text-lg" title="Day mode">☀️</span>
+              ) : (
+                <span className="text-lg" title="Night mode">🌙</span>
+              )}
+            </button>
+          </li>
         </ul>
       </div>
     </nav>
