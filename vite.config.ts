@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const repoName = 'portfolio'
 export default defineConfig({
   plugins: [react()],
-  base: process.env.GITHUB_PAGES === 'true' ? `/${repoName}/` : '/',
+  // Served from site root (e.g. diegofleitas.github.io). For project site at /portfolio/, use base: '/portfolio/'
+  base: '/',
 })
