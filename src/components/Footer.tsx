@@ -16,6 +16,9 @@ export function Footer() {
           <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
             GitHub
           </a>
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+            LinkedIn
+          </a>
         </div>
       </div>
     </footer>

@@ -39,6 +39,22 @@ function GitHubLogo({ className }: { className?: string }) {
   )
 }
 
+function LinkedInLogo({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={iconSize}
+      height={iconSize}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden
+    >
+      <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.5 1 3.88 1 4.98 2.12 4.98 3.5zM0 8.25h5v15.75H0V8.25zM8.75 8.25h4.8v2.15h.07c.67-1.27 2.3-2.6 4.73-2.6 5.06 0 6 3.33 6 7.67v8.53h-5v-7.56c0-1.8-.03-4.1-2.5-4.1-2.5 0-2.88 1.95-2.88 3.97v7.69h-5V8.25z" />
+    </svg>
+  )
+}
+
 export function Contact() {
   return (
     <section id="contact" className="scroll-mt-20 border-b border-border px-4 py-14 sm:px-6 sm:py-20">
@@ -62,6 +78,16 @@ export function Contact() {
           >
             <GitHubLogo className="shrink-0" />
             <span>{site.githubHandle}</span>
+          </a>
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-muted hover:text-foreground transition-colors"
+            aria-label={`LinkedIn: ${site.linkedinHandle}`}
+          >
+            <LinkedInLogo className="shrink-0" />
+            <span>{site.linkedinHandle}</span>
           </a>
         </div>
       </div>
