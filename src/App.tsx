@@ -6,12 +6,15 @@ import { Education } from './components/Education'
 import { Experience } from './components/Experience'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
+import { Background } from './components/Background'
 
 function App() {
   return (
-    <div className="min-h-screen bg-surface text-foreground">
-      <Nav />
-      <main>
+    <div className="relative min-h-screen bg-surface text-foreground">
+      <Background />
+      <div className="relative z-10">
+        <Nav />
+        <main>
         <Hero />
         <About />
         <Experience />
@@ -20,6 +23,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      </div>
     </div>
   )
 }
