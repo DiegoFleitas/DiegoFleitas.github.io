@@ -4,7 +4,7 @@ export function Projects() {
   return (
     <section id="projects" className="scroll-mt-20 border-b border-border px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-4xl">
-        <h2 className="text-2xl font-bold text-foreground">Open source projects</h2>
+        <h2 className="text-2xl font-bold text-foreground">Open source</h2>
         <ul className="mt-8 grid gap-6 sm:grid-cols-1">
           {[...projects].reverse().map((project, i) => (
             <li
