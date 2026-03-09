@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { site } from '../data/site'
+import { ContactModal } from './ContactModal'
 
 export function Hero() {
+  const [contactOpen, setContactOpen] = useState(false)
   return (
     <section className="border-b border-border px-4 py-16 sm:px-6 sm:py-24">
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
           {site.name}
@@ -12,12 +16,13 @@ export function Hero() {
           <p className="mt-1 text-sm text-muted">{site.subline}</p>
         )}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => setContactOpen(true)}
             className="inline-flex items-center rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-surface hover:opacity-90 transition-opacity"
           >
             Get in touch
-          </a>
+          </button>
           {site.cvPdfUrl && (
             <a
               href={site.cvPdfUrl}
