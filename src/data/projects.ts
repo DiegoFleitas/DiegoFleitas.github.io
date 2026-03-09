@@ -17,5 +17,6 @@ export const projects: Project[] = [
     description:
       'Movie streaming search and country-level availability (JustWatch clone); watchlist ingestion tool with JustWatch API integration for streaming availability lookup.',
     repoUrl: 'https://github.com/DiegoFleitas/letterboxd-movie-justwatch',
+    demoUrl: 'https://movie-justwatch.fly.dev/',
   },
 ]

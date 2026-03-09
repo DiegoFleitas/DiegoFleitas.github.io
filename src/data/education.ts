@@ -25,7 +25,7 @@ export const education: EducationEntry[] = [
     bullets: [],
   },
   {
-    degree: 'First Certificate in English',
+    degree: 'Cambridge English: B2 First (FCE)',
     institution: 'University of Cambridge',
     date: '2014',
     logoUrl: '/logos/cambridge.png',

@@ -6,12 +6,26 @@ export function Projects() {
       <div className="mx-auto max-w-4xl">
         <h2 className="text-2xl font-bold text-foreground">Projects</h2>
         <ul className="mt-8 grid gap-6 sm:grid-cols-1">
-          {projects.map((project, i) => (
+          {[...projects].reverse().map((project, i) => (
             <li
               key={i}
               className="rounded-xl border border-border bg-surface-elevated/80 p-5 transition hover:border-foreground/30"
             >
-              <h3 className="font-semibold text-foreground">{project.title}</h3>
+              <div className="flex items-center gap-3">
+                <h3 className="font-semibold text-foreground">{project.title}</h3>
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-muted underline hover:text-foreground transition-colors"
+                    aria-label={`${project.title} demo`}
+                  >
+                    <span>Demo</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 {project.description}
               </p>
@@ -24,16 +38,6 @@ export function Projects() {
                 >
                   Repository
                 </a>
-                {project.demoUrl && (
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-muted underline hover:text-foreground transition-colors"
-                  >
-                    Demo
-                  </a>
-                )}
               </div>
             </li>
           ))}
