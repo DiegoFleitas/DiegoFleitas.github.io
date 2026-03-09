@@ -62,7 +62,7 @@ export function About() {
             </div>
           </div>
           <figcaption className="mt-3 text-xs text-muted">
-            Casual client dinner after a long day of working together
+            Some of the people I’ve had the privilege to build software with.
           </figcaption>
         </figure>
       </div>
