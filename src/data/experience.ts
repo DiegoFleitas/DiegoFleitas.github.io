@@ -18,7 +18,7 @@ export const experience: ExperienceEntry[] = [
     duration: 'Present',
     logoUrl: '/logos/cursor.png',
     bullets: [
-      'Modernized legacy full-stack projects by migrating from jQuery to React and TypeScript, while implementing CI/CD automation pipelines',
+      'Modernized legacy full-stack projects by migrating from jQuery to React and TypeScript, while implementing CI/CD automation pipelines and automated quality checks',
       'Integrated AI-native tools (Cursor/Copilot) into the development workflow to accelerate code refactoring and diagnostic tasks',
     ],
   },
@@ -31,10 +31,11 @@ export const experience: ExperienceEntry[] = [
     logoUrl: '/logos/tarmac.png',
     bullets: [
       'Delivered features for US stakeholders across time zones using asynchronous handoffs, precise documentation, and cross-functional alignment with distributed teams (US, LATAM)',
-      'Built backend authentication on serverless (JWT, custom token validation middleware) and implemented RBAC for a high-traffic K-12 platform',
-      'Built curriculum ingestion (Node command to process spreadsheets) and analytics endpoints; integrated external services (e.g. product locators) through parallelization, caching, and retry logic (Python)',
-      'Automated monitoring, alerting, and CI/CD using AWS Lambda, SQS, and health checks; drove production reliability and proactive incident response',
-      'Reduced production incidents through systematic debugging, refactoring of legacy code paths for testability, and defensive programming patterns',
+      'Designed and implemented user entitlement model (org-role, access windows) for K-12 education platform; drove migrations, user profile endpoint, and navigation-flow design with frontend coordination',
+      'Built backend authentication on serverless (JWT, custom token validation) and role-based access control; delivered single sign-on and roster integration (Clever) for K-12 platform—supported rollout for thousands of students and hundreds of teachers across multiple districts',
+      'Designed multi-stage deployment (sandbox, staging, demo) and release workflow (development to production); integrated SonarCloud for code quality on pull requests; automated monitoring and alerting (AWS Lambda, Amazon SQS, health checks) for production reliability',
+      'Established pull request standards (Danger rules, ticket-in-title, issue link in body) and naming conventions; documented Sequelize/Docker and onboarding for team consistency',
+      'Built curriculum ingestion and analytics endpoints; integrated external services (e.g. product-locator platform) with parallelization, caching, and retry logic; reduced production incidents through systematic debugging and defensive programming',
     ],
   },
   {
