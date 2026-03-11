@@ -12,10 +12,13 @@ export interface EducationEntry {
 export const education: EducationEntry[] = [
   {
     degree: 'Technologist Degree in Computer Science',
-    institution: 'Universidad de la República (Udelar)',
+    institution: 'UTEC · DGETP‑UTU · Universidad de la República (UdelaR)',
     date: '2018',
     logoUrl: '/logos/utec.png',
-    bullets: [],
+    bullets: [
+      'Joint technologist program focused on development, implementation, maintenance, and management of computer systems.',
+      'Emphasis on practical classes and active learning; jointly managed and awarded by UTEC, DGETP‑UTU, and UdelaR.',
+    ],
   },
   {
     degree: 'Front End Development Certification',
