@@ -18,7 +18,7 @@ export const experience: ExperienceEntry[] = [
     duration: 'Present',
     logoUrl: '/logos/cursor.png',
     bullets: [
-      'Modernized legacy full-stack projects by migrating from jQuery to React and TypeScript, while implementing CI/CD automation pipelines and automated quality checks',
+      'Modernized 2 legacy full-stack projects by migrating from jQuery to React and TypeScript, while implementing CI/CD automation pipelines and automated quality checks',
       'Integrated AI-native tools (Cursor/Copilot) into the development workflow to accelerate code refactoring and diagnostic tasks',
     ],
   },
@@ -30,10 +30,10 @@ export const experience: ExperienceEntry[] = [
     duration: '3 years 5 months',
     logoUrl: '/logos/tarmac.png',
     bullets: [
-      'Delivered features for US stakeholders across time zones using asynchronous handoffs, precise documentation, and cross-functional alignment with distributed teams (US, LATAM)',
-      'Designed and implemented user entitlement model (org-role, access windows) for K-12 education platform; drove migrations, user profile endpoint, and navigation-flow design with frontend coordination',
-      'Built backend authentication on serverless (JWT, custom token validation) and role-based access control; delivered single sign-on and roster integration (Clever) for K-12 platform—supported rollout for thousands of students and hundreds of teachers across multiple districts',
-      'Designed multi-stage deployment (sandbox, staging, demo) and release workflow (development to production); integrated SonarCloud for code quality on pull requests; automated monitoring and alerting (AWS Lambda, Amazon SQS, health checks) for production reliability',
+      'Delivered features for US stakeholders across time zones using asynchronous handoffs, precise documentation, and cross-functional alignment with distributed teams across 2 regions (US, LATAM)',
+      'Designed and implemented user entitlement model (org-role, access windows) for K-12 education platform; drove 2 migrations, user profile endpoint, and navigation-flow design with frontend coordination',
+      'Built backend authentication on serverless (JWT, custom token validation) and role-based access control; delivered single sign-on and roster integration (Clever) for K-12 platform—supported rollout for 2,000+ students and 150+ teachers across 3 districts',
+      'Designed 3-stage deployment (sandbox, staging, demo) and release workflow (development to production); integrated SonarCloud for code quality on pull requests; automated monitoring and alerting (AWS Lambda, Amazon SQS, health checks) for production reliability',
       'Established pull request standards (Danger rules, ticket-in-title, issue link in body) and naming conventions; documented Sequelize/Docker and onboarding for team consistency',
       'Built curriculum ingestion and analytics endpoints; integrated external services (e.g. product-locator platform) with parallelization, caching, and retry logic; reduced production incidents through systematic debugging and defensive programming',
     ],
