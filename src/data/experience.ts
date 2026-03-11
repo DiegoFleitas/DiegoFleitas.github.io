@@ -20,6 +20,7 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       'Modernized 2 legacy full-stack projects by migrating from jQuery to React and TypeScript, while implementing CI/CD automation pipelines and automated quality checks',
       'Integrated AI-native tools (Cursor/Copilot) into the development workflow to accelerate code refactoring and diagnostic tasks',
+      'Built and iterated on a custom Joplin MCP integration to turn personal notes into a searchable documentation hub for day-to-day development, accessible directly from the editor',
     ],
   },
   {
