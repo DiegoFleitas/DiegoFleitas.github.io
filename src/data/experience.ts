@@ -59,7 +59,7 @@ export const experience: ExperienceEntry[] = [
     duration: '1 year 10 months',
     logoUrl: '/logos/design-it.png',
     bullets: [
-      'Built and deployed web products for international clients using PHP (Laravel) and Vue/Quasar',
+      'Built web products for international clients using PHP (Laravel) and Vue/Quasar',
       'Built responsive web applications with Quasar for cross-platform deployment; deployed iOS apps to the App Store',
     ],
   },
