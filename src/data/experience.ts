@@ -34,7 +34,7 @@ export const experience: ExperienceEntry[] = [
       'Delivered features for US stakeholders across time zones using asynchronous handoffs, precise documentation, and cross-functional alignment with distributed teams across 2 regions (US, LATAM)',
       'Designed and implemented user entitlement model (org-role, access windows) for K-12 education platform; drove 2 migrations, user profile endpoint, and navigation-flow design with frontend coordination',
       'Built backend authentication on serverless (JWT, custom token validation) and role-based access control; delivered single sign-on and roster integration (Clever) for K-12 platform—supported rollout for 2,000+ students and 150+ teachers across 3 districts',
-      'Designed 3-stage deployment (sandbox, staging, demo) and release workflow (development to production); integrated SonarCloud for code quality on pull requests; automated monitoring and alerting (AWS Lambda, Amazon SQS, health checks) for production reliability',
+      'Designed 3-stage deployment (sandbox, staging, demo) and release workflow (development to production); automated monitoring and alerting (AWS Lambda, Amazon SQS, health checks) for production reliability',
       'Established pull request standards (Danger rules, ticket-in-title, issue link in body) and naming conventions; documented Sequelize/Docker and onboarding for team consistency',
       'Built curriculum ingestion and analytics endpoints; integrated external services (e.g. product-locator platform) with parallelization, caching, and retry logic; reduced production incidents through systematic debugging and defensive programming',
     ],
