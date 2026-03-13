@@ -11,12 +11,12 @@
     --text: #fafafa;
     --text-muted: #a3a3a3;
     --accent: #e5e5e5;
-    /* Background: gradient spots + spinning layer + cursor glow (theme-driven) */
+    /* Background: gradient spots + spinning layer + cursor glow (theme-driven) – blue/teal/green, no purple */
     --spot-a: rgba(59, 130, 246, 0.12);
-    --spot-b: rgba(139, 92, 246, 0.1);
+    --spot-b: rgba(34, 211, 238, 0.1);
     --spot-c: rgba(34, 197, 94, 0.08);
     --gradient-1: rgba(59, 130, 246, 0.15);
-    --gradient-2: rgba(139, 92, 246, 0.12);
+    --gradient-2: rgba(34, 211, 238, 0.12);
     --gradient-3: rgba(34, 197, 94, 0.1);
     --cursor-glow: rgba(148, 163, 184, 0.08);
     --bg-layer-spots-opacity: 1;
