@@ -1,4 +1,5 @@
 import { projects } from '../data/projects'
+import { trackEvent } from '../utils/analytics'
 
 export function Projects() {
   return (
@@ -20,6 +21,7 @@ export function Projects() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs font-medium text-muted underline hover:text-foreground transition-colors"
                     aria-label={`${project.title} demo`}
+                    onClick={() => trackEvent('project_click', { type: 'demo', project_title: project.title })}
                   >
                     <span>Demo</span>
                     <span aria-hidden="true">↗</span>
@@ -35,6 +37,7 @@ export function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-medium text-muted underline hover:text-foreground transition-colors"
+                  onClick={() => trackEvent('project_click', { type: 'repo', project_title: project.title })}
                 >
                   Repository
                 </a>

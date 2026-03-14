@@ -1,4 +1,5 @@
 import { site } from '../data/site'
+import { trackEvent } from '../utils/analytics'
 
 const iconSize = 24
 
@@ -65,6 +66,7 @@ export function Contact() {
             href={`mailto:${site.email}`}
             className="flex items-center gap-3 text-muted hover:text-foreground transition-colors"
             aria-label={`Email: ${site.email}`}
+            onClick={() => trackEvent('contact_click', { type: 'email' })}
           >
             <MailLogo className="shrink-0" />
             <span>{site.email}</span>
@@ -75,6 +77,7 @@ export function Contact() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-muted hover:text-foreground transition-colors"
             aria-label={`GitHub: ${site.githubHandle}`}
+            onClick={() => trackEvent('contact_click', { type: 'github' })}
           >
             <GitHubLogo className="shrink-0" />
             <span>{site.githubHandle}</span>
@@ -85,6 +88,7 @@ export function Contact() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-muted hover:text-foreground transition-colors"
             aria-label={`LinkedIn: ${site.linkedinHandle}`}
+            onClick={() => trackEvent('contact_click', { type: 'linkedin' })}
           >
             <LinkedInLogo className="shrink-0" />
             <span>{site.linkedinHandle}</span>

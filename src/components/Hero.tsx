@@ -5,7 +5,7 @@ import { ContactModal } from './ContactModal'
 export function Hero() {
   const [contactOpen, setContactOpen] = useState(false)
   return (
-    <section className="border-b border-border px-4 py-16 sm:px-6 sm:py-24">
+    <section id="hero" className="border-b border-border px-4 py-16 sm:px-6 sm:py-24">
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">

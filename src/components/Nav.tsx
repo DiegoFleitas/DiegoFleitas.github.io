@@ -1,4 +1,5 @@
 import { useTheme } from '../context/ThemeContext'
+import { trackEvent } from '../utils/analytics'
 
 const links = [
   { href: '#about', label: 'About me' },
@@ -11,6 +12,12 @@ const links = [
 export function Nav() {
   const { theme, setTheme } = useTheme()
 
+  const handleThemeToggle = () => {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    trackEvent('theme_toggle', { theme: next })
+  }
+
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
       <div className="mx-auto flex max-w-4xl items-center justify-end px-4 py-3 sm:px-6">
@@ -20,6 +27,7 @@ export function Nav() {
               <a
                 href={href}
                 className="text-sm font-medium text-muted hover:text-foreground transition-colors"
+                onClick={() => trackEvent('nav_click', { destination: href.slice(1) })}
               >
                 {label}
               </a>
@@ -28,7 +36,7 @@ export function Nav() {
           <li>
             <button
               type="button"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={handleThemeToggle}
               className="rounded-lg p-2 text-muted hover:bg-surface-elevated hover:text-foreground transition-colors"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
