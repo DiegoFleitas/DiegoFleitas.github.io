@@ -16,6 +16,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Required so `${{ vars.VITE_GA_ID }}` resolves from the `github-pages` *environment*
+    # variables. Repository-level vars alone do not include env-scoped settings.
+    environment: github-pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
