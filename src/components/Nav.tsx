@@ -1,4 +1,7 @@
+import { useEffect, useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import { useTheme } from '../context/ThemeContext'
+import { createActionAnimation } from '../lib/motion'
 import { trackEvent } from '../utils/analytics'
 
 const links = [
@@ -11,6 +14,27 @@ const links = [
 
 export function Nav() {
   const { theme, setTheme } = useTheme()
+  const shouldReduceMotion = useReducedMotion()
+  const actionAnimation = createActionAnimation(shouldReduceMotion)
+  const defaultHref = links[0]?.href ?? '#about'
+  const [activeHref, setActiveHref] = useState(defaultHref)
+
+  useEffect(() => {
+    const nextActiveFromHash = () => {
+      const hash = window.location.hash
+      const match = links.find((link) => link.href === hash)
+      setActiveHref(match?.href ?? defaultHref)
+    }
+
+    nextActiveFromHash()
+    window.addEventListener('hashchange', nextActiveFromHash)
+    return () => window.removeEventListener('hashchange', nextActiveFromHash)
+  }, [defaultHref])
+
+  const linkClassName = useMemo(
+    () => 'relative inline-flex rounded px-1 py-0.5 text-sm font-medium transition-colors',
+    []
+  )
 
   const handleThemeToggle = () => {
     const next = theme === 'dark' ? 'light' : 'dark'
@@ -24,13 +48,25 @@ export function Nav() {
         <ul className="flex items-center gap-6">
           {links.map(({ href, label }) => (
             <li key={href}>
-              <a
+              <motion.a
+                {...actionAnimation}
                 href={href}
-                className="text-sm font-medium text-muted hover:text-foreground transition-colors"
-                onClick={() => trackEvent('nav_click', { destination: href.slice(1) })}
+                aria-current={activeHref === href ? 'page' : undefined}
+                className={`${linkClassName} ${activeHref === href ? 'text-foreground' : 'text-muted hover:text-foreground'}`}
+                onClick={() => {
+                  setActiveHref(href)
+                  trackEvent('nav_click', { destination: href.slice(1) })
+                }}
               >
+                {activeHref === href && (
+                  <motion.span
+                    layoutId="nav-active-link"
+                    className="absolute inset-0 -z-10 rounded bg-surface-elevated"
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
                 {label}
-              </a>
+              </motion.a>
             </li>
           ))}
           <li>
