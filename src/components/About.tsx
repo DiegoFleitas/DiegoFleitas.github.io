@@ -12,27 +12,6 @@ export function About() {
           <p className="mt-4 leading-relaxed text-muted whitespace-pre-line">
             {aboutSummary}
           </p>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            I hold a{' '}
-            <a
-              href="https://utec.edu.uy/en/education/undergraduate-study/technologist-degree-in-computer-science/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline decoration-dotted underline-offset-4 hover:decoration-solid"
-            >
-              Technologist Degree in Computer Science
-            </a>{' '}
-            and the{' '}
-            <a
-              href="https://www.cambridgeenglish.org/es/exams-and-tests/first/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline decoration-dotted underline-offset-4 hover:decoration-solid"
-            >
-              Cambridge English: B2 First (FCE)
-            </a>{' '}
-            certification.
-          </p>
         </div>
 
         <figure className="lg:w-1/2 group">

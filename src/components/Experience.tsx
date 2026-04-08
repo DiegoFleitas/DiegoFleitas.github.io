@@ -109,6 +109,7 @@ function TimelineEntry({
 
 export function Experience() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const visible = experience.filter((entry) => !entry.hidden)
 
   return (
     <section
@@ -135,11 +136,11 @@ export function Experience() {
           {INTRO}
         </p>
         <ul className="mt-8 list-none">
-          {experience.map((entry, i) => (
+          {visible.map((entry, i) => (
             <TimelineEntry
               key={i}
               entry={entry}
-              isLast={i === experience.length - 1}
+              isLast={i === visible.length - 1}
               isExpanded={expandedIndex === i}
               onToggle={() =>
                 setExpandedIndex((prev) => (prev === i ? null : i))

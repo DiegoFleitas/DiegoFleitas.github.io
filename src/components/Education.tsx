@@ -102,6 +102,7 @@ function TimelineEntry({
 
 export function Education() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const visible = education.filter((entry) => !entry.hidden)
 
   return (
     <section
@@ -114,11 +115,11 @@ export function Education() {
         </h2>
         <p className="mt-3 text-sm text-muted sm:text-base">{INTRO}</p>
         <ul className="mt-8 list-none">
-          {education.map((entry, i) => (
+          {visible.map((entry, i) => (
             <TimelineEntry
               key={i}
               entry={entry}
-              isLast={i === education.length - 1}
+              isLast={i === visible.length - 1}
               isExpanded={expandedIndex === i}
               onToggle={() =>
                 setExpandedIndex((prev) => (prev === i ? null : i))

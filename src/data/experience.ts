@@ -7,16 +7,19 @@ export interface ExperienceEntry {
   bullets: string[]
   /** Local logo path for timeline node (e.g. /logos/tarmac.png). */
   logoUrl?: string
+  /** When true, omitted from the public timeline (kept in data for CV / optional restore). */
+  hidden?: boolean
 }
 
 export const experience: ExperienceEntry[] = [
   {
-    company: 'Technical Upskilling',
-    role: '',
+    company: 'Independent — professional development',
+    role: 'Full-stack modernization & developer tooling',
     location: '',
     date: 'August 2025 — Present',
     duration: 'Present',
     logoUrl: '/logos/cursor.png',
+    hidden: true,
     bullets: [
       'Modernized 2 legacy full-stack projects by migrating from jQuery to React and TypeScript, while implementing CI/CD automation pipelines and automated quality checks',
       'Integrated AI-native tools (Cursor/Copilot) into the development workflow to accelerate code refactoring and diagnostic tasks',
@@ -25,7 +28,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     company: 'Tarmac.IO',
-    role: 'Senior Backend Engineer',
+    role: 'Software Engineer',
     location: 'Montevideo, Uruguay',
     date: 'March 2022 — August 2025',
     duration: '3 years 5 months',
