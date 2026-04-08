@@ -41,7 +41,6 @@ describe('App', () => {
         { section_name: 'experience' },
         { section_name: 'education' },
         { section_name: 'projects' },
-        { section_name: 'contact' },
       ])
     )
   })

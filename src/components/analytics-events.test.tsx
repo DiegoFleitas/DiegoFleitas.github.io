@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { ThemeProvider } from '../context/ThemeContext'
 import { Nav } from './Nav'
 import { Projects } from './Projects'
-import { Contact } from './Contact'
+import { Footer } from './Footer'
 
 vi.mock('../utils/analytics', () => ({
   trackEvent: vi.fn(),
@@ -69,7 +69,7 @@ describe('analytics event wiring', () => {
   })
 
   it('tracks contact link clicks', () => {
-    render(<Contact />)
+    render(<Footer />)
 
     clickWithoutNavigation(screen.getByLabelText(/^Email:/i))
     expect(trackEvent).toHaveBeenCalledWith('contact_click', { type: 'email' })
