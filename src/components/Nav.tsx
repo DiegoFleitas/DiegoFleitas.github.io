@@ -14,7 +14,7 @@ const links = [
 
 export function Nav() {
   const { theme, setTheme } = useTheme()
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useReducedMotion() ?? false
   const actionAnimation = createActionAnimation(shouldReduceMotion)
   const defaultHref = links[0]?.href ?? '#about'
   const [activeHref, setActiveHref] = useState(defaultHref)
