@@ -9,7 +9,6 @@ const links = [
   { href: '#experience', label: 'Experience' },
   { href: '#education', label: 'Education' },
   { href: '#projects', label: 'Open source' },
-  { href: '#contact', label: 'Contact' },
 ]
 
 export function Nav() {
