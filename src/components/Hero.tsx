@@ -64,7 +64,7 @@ function LinkedInIcon({ className }: { className?: string }) {
 
 export function Hero() {
   const [contactOpen, setContactOpen] = useState(false)
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useReducedMotion() ?? false
   const headingAnimation = createFadeUpReveal(shouldReduceMotion, 0.05)
   const taglineAnimation = createFadeUpReveal(shouldReduceMotion, 0.12)
   const pitchAnimation = createFadeUpReveal(shouldReduceMotion, 0.2)
