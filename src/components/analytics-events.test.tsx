@@ -39,6 +39,19 @@ describe('analytics event wiring', () => {
     )
   })
 
+  it('marks current section link as active based on hash', () => {
+    window.history.pushState({}, '', '#projects')
+
+    render(
+      <ThemeProvider>
+        <Nav />
+      </ThemeProvider>
+    )
+
+    expect(screen.getByRole('link', { name: 'Open source' })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('link', { name: 'About me' })).not.toHaveAttribute('aria-current')
+  })
+
   it('tracks project demo and repository clicks', () => {
     render(<Projects />)
 
