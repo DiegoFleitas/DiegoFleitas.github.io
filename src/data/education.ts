@@ -7,6 +7,8 @@ export interface EducationEntry {
   bullets?: string[]
   /** Local logo path for timeline node (e.g. /logos/utec.png). */
   logoUrl?: string
+  /** When true, omitted from the public timeline. */
+  hidden?: boolean
 }
 
 export const education: EducationEntry[] = [
@@ -26,6 +28,7 @@ export const education: EducationEntry[] = [
     date: '2017',
     logoUrl: '/logos/freecodecamp.png',
     bullets: [],
+    hidden: true,
   },
   {
     degree: 'Cambridge English: B2 First (FCE)',

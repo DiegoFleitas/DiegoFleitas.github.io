@@ -5,12 +5,14 @@ export interface Project {
   demoUrl?: string
 }
 
-export const projects: Project[] = [
+/** User-facing apps and extensions */
+export const projectsApps: Project[] = [
   {
-    title: 'dotfiles',
+    title: 'letterboxd-movie-justwatch',
     description:
-      'Automated developer environment setup for Linux/macOS using chezmoi and shell scripts for dotfiles and reproducible configuration.',
-    repoUrl: 'https://github.com/DiegoFleitas/dotfiles',
+      'Streaming availability search by country (multi-provider, JustWatch-style lookup). Includes watchlist ingestion and integration with streaming availability APIs.',
+    repoUrl: 'https://github.com/DiegoFleitas/letterboxd-movie-justwatch',
+    demoUrl: 'https://movie-justwatch.fly.dev/',
   },
   {
     title: 'dmca-redirect',
@@ -19,11 +21,14 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/DiegoFleitas/dmca-redirect',
     demoUrl: 'https://addons.mozilla.org/en-US/firefox/addon/dmca-redirect/',
   },
+]
+
+/** Personal OSS for reproducible local setup */
+export const projectsTooling: Project[] = [
   {
-    title: 'letterboxd-movie-justwatch',
+    title: 'dotfiles',
     description:
-      'Movie streaming search and country-level availability (JustWatch clone); watchlist ingestion tool with JustWatch API integration for streaming availability lookup.',
-    repoUrl: 'https://github.com/DiegoFleitas/letterboxd-movie-justwatch',
-    demoUrl: 'https://movie-justwatch.fly.dev/',
+      'Automated developer environment setup for Linux/macOS using chezmoi and shell scripts for dotfiles and reproducible configuration.',
+    repoUrl: 'https://github.com/DiegoFleitas/dotfiles',
   },
 ]
