@@ -2,7 +2,7 @@ export const site = {
   name: 'Diego Fleitas',
   tagline: 'Backend-first Software Engineer',
   heroPitch:
-    'I build robust APIs and backend systems with Node.js, TypeScript, and AWS, and I deliver full-stack features when the product needs it.',
+    '',
   subline: 'Montevideo, Uruguay (Remote) · Independent contractor (SAS)',
   email: 'diego.fleitas68@gmail.com',
   github: 'https://github.com/DiegoFleitas',
