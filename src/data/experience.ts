@@ -87,6 +87,7 @@ export const experience: ExperienceEntry[] = [
     date: 'September 2017 — November 2017',
     duration: '3 months',
     logoUrl: '/logos/surtec.png',
+    hidden: true,
     bullets: [
       'Developed desktop and mobile applications using .NET, C#, and WPF (WinForms)',
       'Built cross-platform mobile applications with Xamarin and LiteDB for local data storage (including an event app for Expo Prado 2017 published in an early version to Google Play)',
