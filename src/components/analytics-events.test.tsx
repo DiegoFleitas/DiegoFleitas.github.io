@@ -28,7 +28,7 @@ describe('analytics event wiring', () => {
       </ThemeProvider>
     )
 
-    fireEvent.click(screen.getByRole('link', { name: 'About me' }))
+    fireEvent.click(screen.getByRole('link', { name: 'About' }))
     expect(trackEvent).toHaveBeenCalledWith('nav_click', { destination: 'about' })
 
     const toggleButton = screen.getByRole('button', { name: /switch to/i })
@@ -48,8 +48,8 @@ describe('analytics event wiring', () => {
       </ThemeProvider>
     )
 
-    expect(screen.getByRole('link', { name: 'Open source' })).toHaveAttribute('aria-current', 'page')
-    expect(screen.getByRole('link', { name: 'About me' })).not.toHaveAttribute('aria-current')
+    expect(screen.getByRole('link', { name: 'OSS' })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('link', { name: 'About' })).not.toHaveAttribute('aria-current')
   })
 
   it('tracks project demo and repository clicks', () => {
