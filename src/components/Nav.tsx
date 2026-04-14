@@ -5,10 +5,10 @@ import { createActionAnimation } from '../lib/motion'
 import { trackEvent } from '../utils/analytics'
 
 const links = [
-  { href: '#about', label: 'About me' },
-  { href: '#experience', label: 'Experience' },
+  { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Work' },
   { href: '#education', label: 'Education' },
-  { href: '#projects', label: 'Open source' },
+  { href: '#projects', label: 'OSS' },
 ]
 
 export function Nav() {
@@ -31,7 +31,7 @@ export function Nav() {
   }, [defaultHref])
 
   const linkClassName = useMemo(
-    () => 'relative inline-flex rounded px-1 py-0.5 text-sm font-medium transition-colors',
+    () => 'relative inline-flex whitespace-nowrap rounded px-1 py-0.5 text-sm font-medium transition-colors',
     []
   )
 
