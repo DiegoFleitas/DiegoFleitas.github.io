@@ -1,5 +1,4 @@
 import { aboutSummary } from '../data/about'
-import { ImageCarousel } from './ImageCarousel'
 
 export function About() {
   return (
@@ -15,14 +14,32 @@ export function About() {
           </p>
         </div>
 
-        <figure className="w-full">
-          <ImageCarousel
-            images={['/client-dinner.jpg', '/team-photo1.jpg']}
-            autoplay={true}
-            interval={4000}
-            showDots={true}
-          />
+        <figure className="lg:w-1/2 group">
+          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-[var(--bg-elevated)] shadow-sm">
+            {/* Base image that blurs on hover */}
+            <img
+              src="/client-dinner.jpg"
+              alt="Group dinner with a client team after a week of on-site collaboration"
+              className="h-full w-full object-cover transition duration-200 group-hover:blur-sm"
+              loading="lazy"
+            />
 
+            {/* Sharp circular window using clip-path */}
+            <img
+              src="/client-dinner.jpg"
+              alt=""
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              style={{ clipPath: 'circle(7% at 12% 34%)' }}
+            />
+
+            {/* Matching blue ring */}
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              <div
+                className="absolute inset-0 rounded-full border-2 border-sky-400 shadow-[0_0_0_2px_rgba(15,23,42,0.7)]"
+                style={{ clipPath: 'circle(7% at 12% 34%)' }}
+              />
+            </div>
+          </div>
           <figcaption className="mt-3 text-xs text-muted">
             Some of the people I’ve had the privilege to build software with.
           </figcaption>
