@@ -3,12 +3,16 @@ import { ImageCarousel } from './ImageCarousel'
 
 const aboutCarouselSlides = [
   {
-    src: '/client-dinner.jpg',
-    alt: 'Group dinner with a client team after a week of on-site collaboration',
+    src: '/tmia-team-photo1.jpg',
+    alt: 'Team photo',
   },
   {
-    src: '/team-photo1.jpg',
-    alt: 'Team photo',
+    src: '/cds-photo2.jpg',
+    alt: 'Team at Código del Sur',
+  },
+  {
+    src: '/tarmac-client-dinner.jpg',
+    alt: 'Group dinner with a client team after a week of on-site collaboration',
   },
 ] as const
 
