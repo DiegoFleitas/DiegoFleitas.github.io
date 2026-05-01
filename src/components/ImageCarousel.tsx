@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import type { Swiper as SwiperType } from 'swiper'
 
@@ -29,6 +29,9 @@ export function ImageCarousel({
   const [index, setIndex] = useState(0)
   const reduced = useReducedMotion()
   const swiperRef = useRef<SwiperType | null>(null)
+  const carouselRef = useRef<HTMLElement | null>(null)
+  const indexRef = useRef(index)
+  indexRef.current = index
 
   const isTest = typeof process !== 'undefined' && process.env?.NODE_ENV === 'test'
   const [components, setComponents] = useState<SwiperComponents | null>(null)
@@ -54,31 +57,35 @@ export function ImageCarousel({
     }
   }, [isTest])
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (slides.length <= 1) return
+  useEffect(() => {
+    const el = carouselRef.current
+    if (!el || slides.length <= 1) return
 
-    let newIndex = index
-    if (e.key === 'ArrowLeft') {
-      newIndex = (index - 1 + slides.length) % slides.length
-    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
 
-    if (e.key === 'ArrowRight') {
-      newIndex = (index + 1) % slides.length
-    }
+      const i = indexRef.current
+      const delta = e.key === 'ArrowLeft' ? -1 : 1
+      const newIndex = (i + delta + slides.length) % slides.length
 
-    if (newIndex === index) return
-
-    setIndex(newIndex)
-    const swiper = swiperRef.current
-    if (swiper) {
-      try {
-        if (swiper.params?.loop) swiper.slideToLoop(newIndex)
-        else swiper.slideTo(newIndex)
-      } catch (err) {
-        console.error(err)
+      e.preventDefault()
+      setIndex(newIndex)
+      const swiper = swiperRef.current
+      if (swiper) {
+        try {
+          if (swiper.params?.loop) swiper.slideToLoop(newIndex)
+          else swiper.slideTo(newIndex)
+        } catch (err) {
+          console.error(err)
+        }
       }
     }
-  }
+
+    el.addEventListener('keydown', onKeyDown)
+    return () => {
+      el.removeEventListener('keydown', onKeyDown)
+    }
+  }, [slides.length])
 
   if (slides.length === 0) return null
 
@@ -87,10 +94,10 @@ export function ImageCarousel({
 
   return (
     <section
+      ref={carouselRef}
       aria-roledescription="carousel"
       aria-label="Image carousel"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
+      tabIndex={0} // NOSONAR - focusable carousel landmark; key handling on ref (native listener), not on non-interactive handler prop
       className="group relative w-full overflow-hidden rounded-2xl border border-border/60 bg-[var(--bg-elevated)] shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-elevated)]"
     >
       {components ? (
