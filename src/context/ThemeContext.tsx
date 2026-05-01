@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useEffect, useState } from 'react'
 import { ThemeContext, getInitialTheme, Theme } from './theme'
 
 export { useTheme } from './theme'
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(getInitialTheme)
+export function ThemeProvider({ children }: Readonly<{ children: React.ReactNode }>) {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.dataset.theme = theme
     localStorage.setItem('theme', theme)
   }, [theme])
 
-  const setTheme = (next: Theme) => setThemeState(next)
+  const changeTheme = (next: Theme) => setTheme(next)
+
+  const value = useMemo(() => ({ theme, setTheme: changeTheme }), [theme, changeTheme])
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   )
