@@ -9,6 +9,8 @@ export type CarouselSlide = {
 
 type Props = {
   slides: readonly CarouselSlide[]
+  /** `cover` fills a fixed aspect frame (may crop). `contain` shows the full image (may letterbox). */
+  imageFit?: 'contain' | 'cover'
   autoplay?: boolean
   interval?: number
   showDots?: boolean
@@ -22,6 +24,7 @@ type SwiperComponents = {
 
 export function ImageCarousel({
   slides,
+  imageFit = 'contain',
   autoplay = true,
   interval = 4000,
   showDots = true,
@@ -91,6 +94,28 @@ export function ImageCarousel({
 
   const autoplayModule = components?.Autoplay
   const swiperAutoplayEnabled = Boolean(autoplay && !reduced && autoplayModule)
+  const useCover = imageFit === 'cover'
+
+  const slideInner = (slide: CarouselSlide, i: number) =>
+    useCover ? (
+      <div className="relative aspect-[16/10] w-full min-w-full flex-shrink-0 overflow-hidden bg-[var(--bg-elevated)]">
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      </div>
+    ) : (
+      <div className="flex h-64 min-w-full flex-shrink-0 items-center justify-center bg-[var(--bg-elevated)] sm:h-80 md:h-96 lg:h-[32rem]">
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          className="h-full w-full object-contain"
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      </div>
+    )
 
   return (
     <section
@@ -124,18 +149,11 @@ export function ImageCarousel({
             const slide = s as unknown as { realIndex?: number; activeIndex?: number }
             setIndex(slide.realIndex ?? slide.activeIndex ?? 0)
           }}
-          autoHeight={true}
+          autoHeight={!useCover}
         >
           {slides.map((slide, i) => (
             <components.SwiperSlide key={`${slide.src}-${i}`}>
-              <div className="flex h-64 min-w-full flex-shrink-0 items-center justify-center bg-[var(--bg-elevated)] sm:h-80 md:h-96 lg:h-[32rem]">
-                <img
-                  src={slide.src}
-                  alt={slide.alt}
-                  className="h-full w-full object-contain"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                />
-              </div>
+              {slideInner(slide, i)}
             </components.SwiperSlide>
           ))}
         </components.Swiper>
@@ -145,16 +163,8 @@ export function ImageCarousel({
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {slides.map((slide, i) => (
-            <div
-              key={`${slide.src}-${i}`}
-              className="flex h-64 min-w-full flex-shrink-0 items-center justify-center bg-[var(--bg-elevated)] sm:h-80 md:h-96 lg:h-[32rem]"
-            >
-              <img
-                src={slide.src}
-                alt={slide.alt}
-                className="h-full w-full object-contain"
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
+            <div key={`${slide.src}-${i}`} className="min-w-full flex-shrink-0">
+              {slideInner(slide, i)}
             </div>
           ))}
         </div>
