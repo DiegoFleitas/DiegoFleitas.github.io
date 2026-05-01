@@ -4,8 +4,14 @@
     <script>
       (function() {
         var s = localStorage.getItem('theme');
-        var t = (s === 'light' || s === 'dark') ? s : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', t);
+        var prefersLight = globalThis.matchMedia && globalThis.matchMedia('(prefers-color-scheme: light)').matches;
+        var t;
+        if (s === 'light' || s === 'dark') {
+          t = s;
+        } else {
+          t = prefersLight ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
       })();
     </script>
     <meta charset="UTF-8" />
