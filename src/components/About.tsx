@@ -1,6 +1,17 @@
 import { aboutSummary } from '../data/about'
 import { ImageCarousel } from './ImageCarousel'
 
+const aboutCarouselSlides = [
+  {
+    src: '/client-dinner.jpg',
+    alt: 'Group dinner with a client team after a week of on-site collaboration',
+  },
+  {
+    src: '/team-photo1.jpg',
+    alt: 'Team photo',
+  },
+] as const
+
 export function About() {
   return (
     <section
@@ -17,7 +28,7 @@ export function About() {
 
         <figure className="w-full">
           <ImageCarousel
-            images={['/client-dinner.jpg', '/team-photo1.jpg']}
+            slides={aboutCarouselSlides}
             autoplay={true}
             interval={4000}
             showDots={true}
