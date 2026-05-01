@@ -34,7 +34,6 @@ export function ImageCarousel({
   const swiperRef = useRef<SwiperType | null>(null)
   const carouselRef = useRef<HTMLElement | null>(null)
   const indexRef = useRef(index)
-  indexRef.current = index
 
   const isTest = typeof process !== 'undefined' && process.env?.NODE_ENV === 'test'
   const [components, setComponents] = useState<SwiperComponents | null>(null)
@@ -59,6 +58,10 @@ export function ImageCarousel({
       mounted = false
     }
   }, [isTest])
+
+  useEffect(() => {
+    indexRef.current = index
+  }, [index])
 
   useEffect(() => {
     const el = carouselRef.current

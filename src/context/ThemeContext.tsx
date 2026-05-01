@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState, useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ThemeContext, getInitialTheme, Theme } from './theme'
 
 export { useTheme } from './theme'
