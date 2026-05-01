@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from 'react'
+import { useMemo, useEffect, useState, useCallback } from 'react'
 import { ThemeContext, getInitialTheme, Theme } from './theme'
 
 export { useTheme } from './theme'
@@ -11,7 +11,7 @@ export function ThemeProvider({ children }: Readonly<{ children: React.ReactNode
     localStorage.setItem('theme', theme)
   }, [theme])
 
-  const changeTheme = (next: Theme) => setTheme(next)
+  const changeTheme = useCallback((next: Theme) => setTheme(next), [])
 
   const value = useMemo(() => ({ theme, setTheme: changeTheme }), [theme, changeTheme])
 

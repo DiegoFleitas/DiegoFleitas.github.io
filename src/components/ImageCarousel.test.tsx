@@ -30,15 +30,13 @@ describe('ImageCarousel', () => {
   })
 
   it('responds to arrow keys when focused', () => {
-    const { container } = render(
-      <ImageCarousel images={images} autoplay={false} showDots />
-    )
+    render(<ImageCarousel images={images} autoplay={false} showDots />)
 
-    const root = container.querySelector('div[tabindex="0"]') as HTMLElement
-    expect(root).toBeTruthy()
+    const focusButton = screen.getByLabelText('Carousel focus') as HTMLElement
+    expect(focusButton).toBeTruthy()
 
-    root.focus()
-    fireEvent.keyDown(root, { key: 'ArrowRight' })
+    focusButton.focus()
+    fireEvent.keyDown(focusButton, { key: 'ArrowRight' })
 
     const dot2 = screen.getByLabelText('Go to slide 2')
     expect(dot2).toHaveAttribute('aria-current', 'true')
