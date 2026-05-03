@@ -23,7 +23,7 @@
     "motion": "^12.38.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "swiper": "^10.0.0"
+    "swiper": "^12.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
