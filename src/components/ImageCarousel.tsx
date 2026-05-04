@@ -10,6 +10,8 @@ export type CarouselSlide = {
    * where faces sit high in the frame so `center` would clip heads.
    */
   coverObjectPosition?: 'center' | 'top' | 'bottom'
+  /** Small company logo overlay (e.g. aligned with experience timeline). */
+  badgeLogo?: { src: string; alt: string }
 }
 
 type Props = {
@@ -36,6 +38,25 @@ function coverObjectPositionClass(slide: CarouselSlide): string {
     default:
       return 'object-center'
   }
+}
+
+function SlideBadgeLogo({
+  badge,
+  loading,
+}: Readonly<{
+  badge: NonNullable<CarouselSlide['badgeLogo']>
+  loading: 'eager' | 'lazy'
+}>) {
+  return (
+    <div
+      className="pointer-events-none absolute right-2 bottom-2 z-10 sm:right-3 sm:bottom-3"
+      title={badge.alt}
+    >
+      <div className="flex h-6 w-6 items-center justify-center rounded-md border border-border/80 bg-[var(--bg-elevated)]/95 p-0.5 shadow-sm backdrop-blur-[2px] sm:h-7 sm:w-7 sm:p-1">
+        <img src={badge.src} alt={badge.alt} className="h-full w-full object-contain" loading={loading} />
+      </div>
+    </div>
+  )
 }
 
 export function ImageCarousel({
@@ -115,26 +136,30 @@ export function ImageCarousel({
   const swiperAutoplayEnabled = Boolean(autoplay && !reduced && autoplayModule)
   const useCover = imageFit === 'cover'
 
-  const slideInner = (slide: CarouselSlide, i: number) =>
-    useCover ? (
+  const slideInner = (slide: CarouselSlide, i: number) => {
+    const imgLoading = i === 0 ? 'eager' : 'lazy'
+    return useCover ? (
       <div className="relative aspect-[16/10] w-full min-w-full flex-shrink-0 overflow-hidden bg-[var(--bg-elevated)]">
         <img
           src={slide.src}
           alt={slide.alt}
           className={`absolute inset-0 h-full w-full object-cover ${coverObjectPositionClass(slide)}`}
-          loading={i === 0 ? 'eager' : 'lazy'}
+          loading={imgLoading}
         />
+        {slide.badgeLogo ? <SlideBadgeLogo badge={slide.badgeLogo} loading={imgLoading} /> : null}
       </div>
     ) : (
-      <div className="flex h-64 min-w-full flex-shrink-0 items-center justify-center bg-[var(--bg-elevated)] sm:h-80 md:h-96 lg:h-[32rem]">
+      <div className="relative flex h-64 min-w-full flex-shrink-0 items-center justify-center bg-[var(--bg-elevated)] sm:h-80 md:h-96 lg:h-[32rem]">
         <img
           src={slide.src}
           alt={slide.alt}
           className="h-full w-full object-contain"
-          loading={i === 0 ? 'eager' : 'lazy'}
+          loading={imgLoading}
         />
+        {slide.badgeLogo ? <SlideBadgeLogo badge={slide.badgeLogo} loading={imgLoading} /> : null}
       </div>
     )
+  }
 
   return (
     <section

@@ -1,21 +1,32 @@
 import { aboutSummary } from '../data/about'
-import { ImageCarousel } from './ImageCarousel'
+import { experience } from '../data/experience'
+import { ImageCarousel, type CarouselSlide } from './ImageCarousel'
 
-const aboutCarouselSlides = [
+function experienceBadge(company: string): CarouselSlide['badgeLogo'] {
+  const entry = experience.find((e) => e.company === company)
+  const src = entry?.logoUrl
+  if (!src) return undefined
+  return { src, alt: entry.company }
+}
+
+const aboutCarouselSlides: readonly CarouselSlide[] = [
   {
     src: '/tmia-team-photo1.jpg',
     alt: 'Team photo',
+    badgeLogo: experienceBadge('TiendaMIA'),
   },
   {
     src: '/cds-photo2.jpg',
     alt: 'Team at Código del Sur',
+    badgeLogo: experienceBadge('CodigoDelSur'),
   },
   {
     src: '/tarmac-client-dinner.jpg',
     alt: 'Group dinner with a client team after a week of on-site collaboration',
     coverObjectPosition: 'top',
+    badgeLogo: experienceBadge('Tarmac.IO'),
   },
-] as const
+]
 
 export function About() {
   return (
@@ -41,7 +52,7 @@ export function About() {
           />
 
           <figcaption className="mt-3 max-w-prose text-sm leading-relaxed text-foreground/70">
-            Some of the people I’ve had the privilege to build software with.
+            Some of the people I'm grateful to have crossed paths with (•◡•)
           </figcaption>
         </figure>
       </div>
