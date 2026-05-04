@@ -4,7 +4,7 @@ import { site } from '../data/site'
 import { getTimelineImageUrl } from '../lib/logo'
 
 const INTRO =
-  "Throughout my career, I've taken on different roles that have shaped my skills and perspective. Each position brought new challenges and learning experiences."
+  "Over the years I've taken on different roles that have shaped my skills and perspective, each bringing new challenges and learning experiences."
 
 type TimelineEntryProps = Readonly<{
   entry: ExperienceEntry
