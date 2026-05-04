@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'motion/react'
 import type { Swiper as SwiperType } from 'swiper'
 
 export type CarouselSlide = {

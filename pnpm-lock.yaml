@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      framer-motion:
-        specifier: ^12.38.0
-        version: 12.38.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       motion:
         specifier: ^12.38.0
         version: 12.38.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
