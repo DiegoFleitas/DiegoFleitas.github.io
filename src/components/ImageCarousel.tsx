@@ -5,6 +5,11 @@ import type { Swiper as SwiperType } from 'swiper'
 export type CarouselSlide = {
   src: string
   alt: string
+  /**
+   * When `imageFit` is `cover`, anchors vertical cropping. Use `top` for wide group shots
+   * where faces sit high in the frame so `center` would clip heads.
+   */
+  coverObjectPosition?: 'center' | 'top' | 'bottom'
 }
 
 type Props = {
@@ -20,6 +25,17 @@ type SwiperComponents = {
   Swiper: React.ComponentType<Record<string, unknown>>
   SwiperSlide: React.ComponentType<Record<string, unknown>>
   Autoplay?: unknown
+}
+
+function coverObjectPositionClass(slide: CarouselSlide): string {
+  switch (slide.coverObjectPosition) {
+    case 'top':
+      return 'object-top'
+    case 'bottom':
+      return 'object-bottom'
+    default:
+      return 'object-center'
+  }
 }
 
 export function ImageCarousel({
@@ -105,7 +121,7 @@ export function ImageCarousel({
         <img
           src={slide.src}
           alt={slide.alt}
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className={`absolute inset-0 h-full w-full object-cover ${coverObjectPositionClass(slide)}`}
           loading={i === 0 ? 'eager' : 'lazy'}
         />
       </div>

@@ -13,6 +13,7 @@ const aboutCarouselSlides = [
   {
     src: '/tarmac-client-dinner.jpg',
     alt: 'Group dinner with a client team after a week of on-site collaboration',
+    coverObjectPosition: 'top',
   },
 ] as const
 
