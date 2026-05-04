@@ -1,21 +1,27 @@
 import { useState } from 'react'
-import { education } from '../data/education'
+import { education, type EducationEntry } from '../data/education'
 import { getTimelineImageUrl } from '../lib/logo'
 
 const INTRO =
   'Formal education and certifications that built the foundation for my work in software development.'
+
+type TimelineEntryProps = Readonly<{
+  entry: EducationEntry
+  isLast: boolean
+  isExpanded: boolean
+  onToggle: () => void
+}>
+
+function timelineEntryKey(entry: EducationEntry) {
+  return `${entry.institution}::${entry.degree}::${entry.date}`
+}
 
 function TimelineEntry({
   entry,
   isLast,
   isExpanded,
   onToggle,
-}: {
-  entry: (typeof education)[0]
-  isLast: boolean
-  isExpanded: boolean
-  onToggle: () => void
-}) {
+}: TimelineEntryProps) {
   const [imgError, setImgError] = useState(false)
   const imageUrl = getTimelineImageUrl(entry.logoUrl)
   const showImage = imageUrl && !imgError
@@ -47,6 +53,15 @@ function TimelineEntry({
             style={{ height: 'calc(100% + 1rem)' }}
             aria-hidden
           />
+        )}
+        {isLast && (
+          <>
+            <div className="h-3 w-0.5 shrink-0 bg-border" aria-hidden />
+            <div
+              className="h-2 w-2 shrink-0 rounded-full border-2 border-border bg-[var(--bg-elevated)]"
+              aria-hidden
+            />
+          </>
         )}
       </div>
 
@@ -86,8 +101,11 @@ function TimelineEntry({
           >
             <div className="overflow-hidden">
               <ul className="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted">
-                {entry.bullets!.map((bullet, j) => (
-                  <li key={j} className="leading-relaxed">
+                {entry.bullets!.map((bullet) => (
+                  <li
+                    key={`${timelineEntryKey(entry)}::${bullet}`}
+                    className="leading-relaxed"
+                  >
                     {bullet}
                   </li>
                 ))}
@@ -117,7 +135,7 @@ export function Education() {
         <ul className="mt-8 list-none">
           {visible.map((entry, i) => (
             <TimelineEntry
-              key={i}
+              key={timelineEntryKey(entry)}
               entry={entry}
               isLast={i === visible.length - 1}
               isExpanded={expandedIndex === i}
