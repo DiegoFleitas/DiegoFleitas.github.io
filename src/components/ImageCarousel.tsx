@@ -155,7 +155,7 @@ export function ImageCarousel({
           autoHeight={!useCover}
         >
           {slides.map((slide, i) => (
-            <components.SwiperSlide key={`${slide.src}-${i}`}>
+            <components.SwiperSlide key={`${slide.src}::${slide.alt}`}>
               {slideInner(slide, i)}
             </components.SwiperSlide>
           ))}
@@ -166,7 +166,10 @@ export function ImageCarousel({
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {slides.map((slide, i) => (
-            <div key={`${slide.src}-${i}`} className="min-w-full flex-shrink-0">
+            <div
+              key={`${slide.src}::${slide.alt}`}
+              className="min-w-full flex-shrink-0"
+            >
               {slideInner(slide, i)}
             </div>
           ))}
@@ -177,7 +180,7 @@ export function ImageCarousel({
         <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
           {slides.map((slide, i) => (
             <button
-              key={`${slide.src}-${i}`}
+              key={`dot::${slide.src}::${slide.alt}`}
               type="button"
               aria-label={`Go to slide ${i + 1}`}
               aria-current={i === index ? 'true' : undefined}

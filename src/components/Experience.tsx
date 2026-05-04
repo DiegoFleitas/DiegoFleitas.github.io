@@ -1,22 +1,28 @@
 import { useState } from 'react'
-import { experience } from '../data/experience'
+import { experience, type ExperienceEntry } from '../data/experience'
 import { site } from '../data/site'
 import { getTimelineImageUrl } from '../lib/logo'
 
 const INTRO =
   "Throughout my career, I've taken on different roles that have shaped my skills and perspective. Each position brought new challenges and learning experiences."
 
+type TimelineEntryProps = Readonly<{
+  entry: ExperienceEntry
+  isLast: boolean
+  isExpanded: boolean
+  onToggle: () => void
+}>
+
+function timelineEntryKey(entry: ExperienceEntry) {
+  return `${entry.company}::${entry.date}::${entry.role ?? ''}`
+}
+
 function TimelineEntry({
   entry,
   isLast,
   isExpanded,
   onToggle,
-}: {
-  entry: (typeof experience)[0]
-  isLast: boolean
-  isExpanded: boolean
-  onToggle: () => void
-}) {
+}: TimelineEntryProps) {
   const [imgError, setImgError] = useState(false)
   const imageUrl = getTimelineImageUrl(entry.logoUrl)
   const showImage = imageUrl && !imgError
@@ -50,6 +56,15 @@ function TimelineEntry({
             style={{ height: 'calc(100% + 1rem)' }}
             aria-hidden
           />
+        )}
+        {isLast && (
+          <>
+            <div className="h-3 w-0.5 shrink-0 bg-border" aria-hidden />
+            <div
+              className="h-2 w-2 shrink-0 rounded-full border-2 border-border bg-[var(--bg-elevated)]"
+              aria-hidden
+            />
+          </>
         )}
       </div>
 
@@ -93,8 +108,11 @@ function TimelineEntry({
           >
             <div className="overflow-hidden">
               <ul className="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted">
-                {entry.bullets.map((bullet, j) => (
-                  <li key={j} className="leading-relaxed">
+                {entry.bullets.map((bullet) => (
+                  <li
+                    key={`${timelineEntryKey(entry)}::${bullet}`}
+                    className="leading-relaxed"
+                  >
                     {bullet}
                   </li>
                 ))}
@@ -138,7 +156,7 @@ export function Experience() {
         <ul className="mt-8 list-none">
           {visible.map((entry, i) => (
             <TimelineEntry
-              key={i}
+              key={timelineEntryKey(entry)}
               entry={entry}
               isLast={i === visible.length - 1}
               isExpanded={expandedIndex === i}
