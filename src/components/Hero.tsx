@@ -96,6 +96,16 @@ export function Hero() {
           </motion.p>
         )}
         <motion.div {...actionsAnimation} className="mt-8 flex flex-wrap justify-center gap-4">
+          <motion.a
+            {...actionAnimation}
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-lg border border-border bg-transparent px-5 py-2.5 text-sm font-medium text-muted hover:border-foreground hover:text-foreground transition-colors"
+          >
+            <LinkedInIcon className="mr-2 h-5 w-5" />
+            Connect on LinkedIn
+          </motion.a>
           <motion.button
             {...actionAnimation}
             type="button"
@@ -117,16 +127,6 @@ export function Hero() {
               View CV
             </motion.a>
           )}
-          <motion.a
-            {...actionAnimation}
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-lg border border-border bg-transparent px-5 py-2.5 text-sm font-medium text-muted hover:border-foreground hover:text-foreground transition-colors"
-          >
-            <LinkedInIcon className="mr-2 h-5 w-5" />
-            Connect on LinkedIn
-          </motion.a>
         </motion.div>
       </div>
     </section>
