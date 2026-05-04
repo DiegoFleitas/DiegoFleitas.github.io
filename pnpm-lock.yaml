@@ -18,8 +18,8 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
       swiper:
-        specifier: ^10.0.0
-        version: 10.3.1
+        specifier: ^12.1.4
+        version: 12.1.4
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -1384,8 +1384,8 @@ packages:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==}
     engines: {node: '>=8'}
 
-  swiper@10.3.1:
-    resolution: {integrity: sha512-24Wk3YUdZHxjc9faID97GTu6xnLNia+adMt6qMTZG/HgdSUt4fS0REsGUXJOgpTED0Amh/j+gRGQxsLayJUlBQ==}
+  swiper@12.1.4:
+    resolution: {integrity: sha512-bihiwoKMOQwW8FfdUbo1DgkVH25E+4ZELIq0oopL1KTKBteLuaTMi/wwFjMxtlhTkk45k3XQ89D1Fvv0spSqBA==}
     engines: {node: '>= 4.7.0'}
 
   symbol-tree@3.2.4:
@@ -2839,7 +2839,7 @@ snapshots:
     dependencies:
       min-indent: 1.0.1
 
-  swiper@10.3.1: {}
+  swiper@12.1.4: {}
 
   symbol-tree@3.2.4: {}
 
