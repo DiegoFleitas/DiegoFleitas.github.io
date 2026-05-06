@@ -1,6 +1,6 @@
 export const site = {
   name: 'Diego Fleitas',
-  tagline: 'Backend-first Software Engineer',
+  tagline: 'Software Engineer',
   heroPitch:
     '',
   subline: 'Montevideo, Uruguay (Remote) · Independent contractor (SAS)',
