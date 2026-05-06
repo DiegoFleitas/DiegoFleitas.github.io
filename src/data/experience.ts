@@ -5,7 +5,7 @@ export interface ExperienceEntry {
   date: string
   duration?: string // e.g. "3 years" for card subtitle
   bullets: string[]
-  /** Local logo path for timeline node (e.g. /logos/tarmac.png). */
+  /** Local logo path for timeline node (e.g. /logos/tarmac-purple.png). */
   logoUrl?: string
   /** When true, omitted from the public timeline (kept in data for CV / optional restore). */
   hidden?: boolean
@@ -32,7 +32,7 @@ export const experience: ExperienceEntry[] = [
     location: 'Montevideo, Uruguay',
     date: 'March 2022 — August 2025',
     duration: '3 years 5 months',
-    logoUrl: '/logos/tarmac.png',
+    logoUrl: '/logos/tarmac-purple.png',
     bullets: [
       'Delivered features for US stakeholders across time zones using asynchronous handoffs, precise documentation, and cross-functional alignment with distributed teams in the US and LATAM',
       'Designed and implemented user entitlement model (org-role, access windows) for a K-12 education platform, with a user profile endpoint and navigation-flow design with frontend coordination',
