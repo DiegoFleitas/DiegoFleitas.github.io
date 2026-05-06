@@ -126,8 +126,29 @@ function TimelineEntry({
 }
 
 export function Experience() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const [expandedIndices, setExpandedIndices] = useState<number[]>([])
   const visible = experience.filter((entry) => !entry.hidden)
+  const expandableIndices = visible
+    .map((entry, index) => ({ entry, index }))
+    .filter(({ entry }) => entry.bullets.length > 0)
+    .map(({ index }) => index)
+  const allExpanded =
+    expandableIndices.length > 0 &&
+    expandableIndices.every((index) => expandedIndices.includes(index))
+
+  function toggleAllDetails() {
+    setExpandedIndices((prev) =>
+      prev.length === expandableIndices.length ? [] : expandableIndices
+    )
+  }
+
+  function toggleDetailsAt(index: number) {
+    setExpandedIndices((prev) =>
+      prev.includes(index)
+        ? prev.filter((existingIndex) => existingIndex !== index)
+        : [...prev, index]
+    )
+  }
 
   return (
     <section
@@ -150,19 +171,52 @@ export function Experience() {
             </a>
           )}
         </div>
-        <p className="mt-3 text-sm text-muted sm:text-base">
-          {INTRO}
-        </p>
+        <div className="mt-3 flex items-start gap-3">
+          <p className="text-sm text-muted sm:text-base">{INTRO}</p>
+          {expandableIndices.length > 0 && (
+            <button
+              type="button"
+              onClick={toggleAllDetails}
+              className="ml-auto inline-flex h-8 w-8 shrink-0 items-center justify-center rounded text-muted transition-colors hover:bg-muted/50 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
+              aria-label={allExpanded ? 'Collapse all details' : 'Expand all details'}
+              title={allExpanded ? 'Collapse all' : 'Expand all'}
+            >
+              {allExpanded ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="h-4 w-4"
+                  aria-hidden
+                >
+                  <path d="M7 15l5-5 5 5" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="h-4 w-4"
+                  aria-hidden
+                >
+                  <path d="M7 9l5 5 5-5" />
+                </svg>
+              )}
+            </button>
+          )}
+        </div>
         <ul className="mt-8 list-none">
           {visible.map((entry, i) => (
             <TimelineEntry
               key={timelineEntryKey(entry)}
               entry={entry}
               isLast={i === visible.length - 1}
-              isExpanded={expandedIndex === i}
-              onToggle={() =>
-                setExpandedIndex((prev) => (prev === i ? null : i))
-              }
+              isExpanded={expandedIndices.includes(i)}
+              onToggle={() => toggleDetailsAt(i)}
             />
           ))}
         </ul>
