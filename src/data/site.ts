@@ -9,5 +9,5 @@ export const site = {
   githubHandle: 'DiegoFleitas',
   linkedin: 'https://www.linkedin.com/in/diego-fleitas/',
   linkedinHandle: 'diego-fleitas',
-  cvPdfUrl: '', // optional: add URL to your PDF for "View CV"
+  cvPdfUrl: '', // optional: add URL to your PDF for "Download CV"
 } as const

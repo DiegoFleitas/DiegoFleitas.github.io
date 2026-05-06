@@ -1,31 +1,8 @@
-import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { createActionAnimation, createFadeUpReveal } from '../lib/motion'
 import { site } from '../data/site'
-import { ContactModal } from './ContactModal'
 
-function MailIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={20}
-      height={20}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <rect width="20" height="14" x="2" y="5" rx="2" />
-      <path d="M22 7 12 13 2 7" />
-    </svg>
-  )
-}
-
-function DocumentIcon({ className }: { className?: string }) {
+function DocumentIcon({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +23,7 @@ function DocumentIcon({ className }: { className?: string }) {
   )
 }
 
-function LinkedInIcon({ className }: { className?: string }) {
+function LinkedInIcon({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +40,6 @@ function LinkedInIcon({ className }: { className?: string }) {
 }
 
 export function Hero() {
-  const [contactOpen, setContactOpen] = useState(false)
   const shouldReduceMotion = useReducedMotion() ?? false
   const headingAnimation = createFadeUpReveal(shouldReduceMotion, 0.05)
   const taglineAnimation = createFadeUpReveal(shouldReduceMotion, 0.12)
@@ -71,10 +47,10 @@ export function Hero() {
   const sublineAnimation = createFadeUpReveal(shouldReduceMotion, 0.26)
   const actionsAnimation = createFadeUpReveal(shouldReduceMotion, 0.32)
   const actionAnimation = createActionAnimation(shouldReduceMotion)
+  const hasCv = site.cvPdfUrl.trim().length > 0
 
   return (
     <section id="hero" className="border-b border-border px-4 py-16 sm:px-6 sm:py-24">
-      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <div className="mx-auto max-w-4xl text-center">
         <motion.h1
           {...headingAnimation}
@@ -106,27 +82,21 @@ export function Hero() {
             <LinkedInIcon className="mr-2 h-5 w-5" />
             Connect on LinkedIn
           </motion.a>
-          <motion.button
+          <motion.a
             {...actionAnimation}
-            type="button"
-            onClick={() => setContactOpen(true)}
-            className="inline-flex items-center rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-surface hover:opacity-90 transition-opacity"
+            href={hasCv ? site.cvPdfUrl : undefined}
+            target={hasCv ? '_blank' : undefined}
+            rel={hasCv ? 'noopener noreferrer' : undefined}
+            aria-disabled={!hasCv}
+            className={`inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-medium transition-opacity ${
+              hasCv
+                ? 'bg-foreground text-surface hover:opacity-90'
+                : 'cursor-not-allowed bg-foreground/40 text-surface/80'
+            }`}
           >
-            <MailIcon className="mr-2 h-5 w-5" />
-            Contact for opportunities
-          </motion.button>
-          {site.cvPdfUrl && (
-            <motion.a
-              {...actionAnimation}
-              href={site.cvPdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg border border-border bg-transparent px-5 py-2.5 text-sm font-medium text-muted hover:border-foreground hover:text-foreground transition-colors"
-            >
-              <DocumentIcon className="mr-2 h-5 w-5" />
-              View CV
-            </motion.a>
-          )}
+            <DocumentIcon className="mr-2 h-5 w-5" />
+            Download CV
+          </motion.a>
         </motion.div>
       </div>
     </section>
