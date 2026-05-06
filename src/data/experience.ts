@@ -28,7 +28,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     company: 'Tarmac.IO',
-    role: 'Software Engineer',
+    role: 'Software Engineer (Independent contractor)',
     location: 'Montevideo, Uruguay',
     date: 'March 2022 — August 2025',
     duration: '3 years 5 months',
