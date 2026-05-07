@@ -13,5 +13,8 @@ export default defineConfig({
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: true,
     timeout: 120_000,
+    env: {
+      VITE_GA_ID: 'G-TEST123',
+    },
   },
 })

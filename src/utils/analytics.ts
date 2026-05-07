@@ -1,10 +1,74 @@
 /**
  * Google Analytics 4 helper.
  * Uses the GA4 Measurement ID provided by VITE_GA_ID.
+ *
+ * For breakdowns on shared params (e.g. referrer_host, utm_*, file_download fields), register
+ * event-scoped custom dimensions in GA4 Admin → Custom definitions.
+ * Do not add PII (names, emails, raw referrer); referrer is hostname-only by design.
  */
 
 const GA_ID = import.meta.env.VITE_GA_ID as string | undefined
 let hasWarnedMissingId = false
+
+const ATTRIBUTION_STORAGE_KEY = 'portfolio_attribution_v1'
+
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const
+
+type SharedParamValue = string | number | boolean
+
+function appendReferrerHost(out: Record<string, SharedParamValue>): void {
+  try {
+    if (typeof document !== 'undefined' && document.referrer) {
+      out.referrer_host = new URL(document.referrer).hostname
+      return
+    }
+  } catch {
+    // invalid referrer URL
+  }
+  out.referrer_host = ''
+}
+
+function mergeSessionAttribution(out: Record<string, SharedParamValue>): void {
+  try {
+    if (globalThis.sessionStorage === undefined) return
+    const raw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY)
+    if (!raw) return
+    const parsed = JSON.parse(raw) as Record<string, unknown>
+    for (const [k, v] of Object.entries(parsed)) {
+      if (typeof v === 'string') out[k] = v
+    }
+  } catch {
+    // ignore invalid JSON or blocked storage
+  }
+}
+
+/** First landing URL in the tab wins; persists for the session. Call from initAnalytics only. */
+export function captureAttributionOnce(): void {
+  if (globalThis.window === undefined || globalThis.sessionStorage === undefined) return
+  try {
+    if (sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY)) return
+    const params = new URLSearchParams(globalThis.window.location.search)
+    const attribution: Record<string, string> = {}
+    for (const key of UTM_KEYS) {
+      const v = params.get(key)
+      if (v) attribution[key] = v
+    }
+    if (Object.keys(attribution).length === 0) return
+    sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(attribution))
+  } catch {
+    // sessionStorage may be unavailable (e.g. private mode)
+  }
+}
+
+/** Non-PII context merged into every tracked event; caller `params` override on key collision. */
+export function getSharedEventParams(): Record<string, SharedParamValue> {
+  const out: Record<string, SharedParamValue> = {
+    page_language: globalThis.navigator === undefined ? '' : globalThis.navigator.language,
+  }
+  appendReferrerHost(out)
+  mergeSessionAttribution(out)
+  return out
+}
 
 /**
  * One gtag call queued as in Google's snippet: `function gtag(){ dataLayer.push(arguments); }`.
@@ -27,20 +91,26 @@ declare global {
   }
 }
 
+/** Narrow `globalThis` to `Window` for gtag/dataLayer (see global augmentation above). */
+function domWindow(): Window {
+  return globalThis as unknown as Window
+}
+
 function hasGtag(): boolean {
-  return typeof window !== 'undefined' && typeof window.gtag === 'function'
+  return globalThis.window !== undefined && typeof domWindow().gtag === 'function'
 }
 
 function logAnalyticsDebugState(phase: string): void {
   // Avoid noisy logs during Vitest (MODE is usually "test" while DEV may be true).
-  if (!import.meta.env.DEV || import.meta.env.MODE === 'test') return
-  const dl = typeof window !== 'undefined' ? window.dataLayer : undefined
-  const mode = import.meta.env.MODE
-  console.info(
-    `[analytics] ${phase} mode=${mode}`,
-    typeof window.gtag,
-    dl?.length ?? 0
-  )
+  if (import.meta.env.DEV && import.meta.env.MODE !== 'test') {
+    const dl = globalThis.window === undefined ? undefined : domWindow().dataLayer
+    const mode = import.meta.env.MODE
+    console.info(
+      `[analytics] ${phase} mode=${mode}`,
+      typeof domWindow().gtag,
+      dl?.length ?? 0
+    )
+  }
 }
 
 /**
@@ -56,17 +126,20 @@ export function initAnalytics(): void {
     return
   }
 
-  window.dataLayer = window.dataLayer ?? []
+  const win = domWindow()
+  win.dataLayer = win.dataLayer ?? []
   // Must match Google's stub: push(arguments), not push([...args]).
-  window.gtag = function gtag() {
+  win.gtag = function gtag() {
     // eslint-disable-next-line prefer-rest-params -- Google gtag stub uses push(arguments), not rest args
-    window.dataLayer.push(arguments)
+    win.dataLayer.push(arguments)
   }
 
-  window.gtag('js', new Date())
+  captureAttributionOnce()
+
+  win.gtag('js', new Date())
 
   const debugMode = import.meta.env.DEV
-  window.gtag('config', GA_ID, { debug_mode: debugMode })
+  win.gtag('config', GA_ID, { debug_mode: debugMode })
 
   logAnalyticsDebugState('after init (queue + config; gtag.js may still be loading)')
 
@@ -87,7 +160,8 @@ export function initAnalytics(): void {
 /**
  * Send a custom event to GA4. No-op if gtag isn't loaded yet.
  */
-export function trackEvent(eventName: string, params?: Record<string, string | number | boolean>): void {
+export function trackEvent(eventName: string, params?: Record<string, SharedParamValue>): void {
   if (!hasGtag()) return
-  window.gtag('event', eventName, params)
+  const merged = { ...getSharedEventParams(), ...params }
+  domWindow().gtag('event', eventName, merged)
 }

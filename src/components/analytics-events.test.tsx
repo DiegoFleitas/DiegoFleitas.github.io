@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ThemeProvider } from '../context/ThemeContext'
 import { Nav } from './Nav'
 import { Projects } from './Projects'
 import { Footer } from './Footer'
+import { Hero } from './Hero'
 
 vi.mock('../utils/analytics', () => ({
   trackEvent: vi.fn(),
@@ -40,7 +41,7 @@ describe('analytics event wiring', () => {
   })
 
   it('marks current section link as active based on hash', () => {
-    window.history.pushState({}, '', '#projects')
+    globalThis.history.pushState({}, '', '#projects')
 
     render(
       <ThemeProvider>
@@ -79,5 +80,32 @@ describe('analytics event wiring', () => {
 
     clickWithoutNavigation(screen.getByLabelText(/^LinkedIn:/i))
     expect(trackEvent).toHaveBeenCalledWith('contact_click', { type: 'linkedin' })
+  })
+
+  it('tracks resume PDF download link click', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(new Blob(['%PDF-1.4'], { type: 'application/pdf' }))
+    )
+    const anchorClickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+
+    render(<Hero />)
+
+    fireEvent.click(screen.getByRole('link', { name: /download resume/i }))
+
+    expect(trackEvent).toHaveBeenCalledWith(
+      'file_download',
+      expect.objectContaining({
+        file_name: 'Diego-Fleitas-Resume.pdf',
+        link_url: '/Diego-Fleitas-Resume.pdf',
+        file_extension: 'pdf',
+      })
+    )
+
+    await waitFor(() => {
+      expect(fetchSpy).toHaveBeenCalledWith('/Diego-Fleitas-Resume.pdf')
+    })
+
+    fetchSpy.mockRestore()
+    anchorClickSpy.mockRestore()
   })
 })

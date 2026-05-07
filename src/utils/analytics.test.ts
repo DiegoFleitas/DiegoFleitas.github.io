@@ -9,7 +9,8 @@ describe('analytics', () => {
   beforeEach(() => {
     vi.unstubAllEnvs()
     document.head.innerHTML = ''
-    const testWindow = window as unknown as {
+    sessionStorage.removeItem('portfolio_attribution_v1')
+    const testWindow = globalThis as unknown as {
       gtag?: (...args: unknown[]) => void
       dataLayer?: unknown[]
     }
@@ -26,7 +27,7 @@ describe('analytics', () => {
     trackEvent('nav_click', { destination: 'about' })
     expect(warnSpy).toHaveBeenCalledWith('[analytics] VITE_GA_ID is missing; analytics is disabled.')
     expect(document.querySelector('script[src*="googletagmanager.com/gtag/js"]')).toBeNull()
-    expect((window as Window & { dataLayer?: unknown[] }).dataLayer).toBeUndefined()
+    expect((globalThis as unknown as Window & { dataLayer?: unknown[] }).dataLayer).toBeUndefined()
   })
 
   it('initializes gtag and sends events', async () => {
@@ -41,7 +42,7 @@ describe('analytics', () => {
     )
     expect(script).toBeInTheDocument()
 
-    const dataLayer = (window as Window & { dataLayer?: unknown[] }).dataLayer
+    const dataLayer = (globalThis as unknown as Window & { dataLayer?: unknown[] }).dataLayer
     expect(dataLayer).toBeDefined()
     expect(Array.from(dataLayer?.[0] as ArrayLike<unknown>)[0]).toBe('js')
     expect(Array.from(dataLayer?.[1] as ArrayLike<unknown>)).toEqual([
@@ -52,7 +53,11 @@ describe('analytics', () => {
     expect(Array.from(dataLayer?.[2] as ArrayLike<unknown>)).toEqual([
       'event',
       'nav_click',
-      { destination: 'about' },
+      expect.objectContaining({
+        destination: 'about',
+        page_language: expect.any(String) as string,
+        referrer_host: expect.any(String) as string,
+      }),
     ])
   })
 
@@ -68,7 +73,7 @@ describe('analytics', () => {
     initAnalytics()
     trackEvent('nav_click', { destination: 'about' })
 
-    const dataLayer = (window as Window & { dataLayer?: unknown[] }).dataLayer
+    const dataLayer = (globalThis as unknown as Window & { dataLayer?: unknown[] }).dataLayer
     expect(dataLayer).toBeDefined()
     for (const entry of dataLayer ?? []) {
       expect(Array.isArray(entry), 'dataLayer entries must not be Arrays (use push(arguments))').toBe(
@@ -76,5 +81,52 @@ describe('analytics', () => {
       )
       expect(Object.prototype.toString.call(entry)).toBe('[object Arguments]')
     }
+  })
+
+  it('stores first-touch UTM params once and merges them into events', async () => {
+    vi.stubEnv('VITE_GA_ID', 'G-TEST123')
+    const { initAnalytics, trackEvent } = await loadAnalyticsModule()
+
+    globalThis.history.pushState({}, '', '/?utm_source=news&utm_campaign=spring')
+
+    initAnalytics()
+    trackEvent('nav_click', { destination: 'about' })
+
+    expect(JSON.parse(sessionStorage.getItem('portfolio_attribution_v1')!)).toEqual({
+      utm_source: 'news',
+      utm_campaign: 'spring',
+    })
+
+    const dataLayer = (globalThis as unknown as Window & { dataLayer?: unknown[] }).dataLayer
+    const eventEntry = Array.from(dataLayer?.[2] as ArrayLike<unknown>)
+    expect(eventEntry[2]).toEqual(
+      expect.objectContaining({
+        utm_source: 'news',
+        utm_campaign: 'spring',
+        destination: 'about',
+      })
+    )
+
+    globalThis.history.pushState({}, '', '/')
+  })
+
+  it('caller trackEvent params override shared keys on collision', async () => {
+    vi.stubEnv('VITE_GA_ID', 'G-TEST123')
+    const { initAnalytics, trackEvent, getSharedEventParams } = await loadAnalyticsModule()
+
+    sessionStorage.setItem(
+      'portfolio_attribution_v1',
+      JSON.stringify({ utm_source: 'stored', utm_medium: 'email' })
+    )
+    initAnalytics()
+    trackEvent('test', { utm_source: 'override' })
+
+    const dataLayer = (globalThis as unknown as Window & { dataLayer?: unknown[] }).dataLayer
+    const eventEntry = Array.from(dataLayer?.[2] as ArrayLike<unknown>)
+    expect((eventEntry[2] as Record<string, string>).utm_source).toBe('override')
+    expect((eventEntry[2] as Record<string, string>).utm_medium).toBe('email')
+
+    expect(getSharedEventParams().utm_source).toBe('stored')
+    sessionStorage.removeItem('portfolio_attribution_v1')
   })
 })

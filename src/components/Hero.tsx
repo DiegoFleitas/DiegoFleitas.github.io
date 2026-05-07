@@ -1,8 +1,13 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { createActionAnimation, createFadeUpReveal } from '../lib/motion'
-import { site } from '../data/site'
+import { cvPdfDownloadFilename, site } from '../data/site'
+import { onResumePdfLinkClick } from '../utils/downloadResumePdf'
 
-function DocumentIcon({ className }: Readonly<{ className?: string }>) {
+type IconProps = Readonly<{
+  className?: string
+}>
+
+function DocumentIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +28,7 @@ function DocumentIcon({ className }: Readonly<{ className?: string }>) {
   )
 }
 
-function LinkedInIcon({ className }: Readonly<{ className?: string }>) {
+function LinkedInIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -85,17 +90,17 @@ export function Hero() {
           <motion.a
             {...actionAnimation}
             href={hasCv ? site.cvPdfUrl : undefined}
-            target={hasCv ? '_blank' : undefined}
-            rel={hasCv ? 'noopener noreferrer' : undefined}
+            download={hasCv ? cvPdfDownloadFilename : undefined}
+            onClick={hasCv ? onResumePdfLinkClick : (e) => e.preventDefault()}
             aria-disabled={!hasCv}
             className={`inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-medium transition-opacity ${
               hasCv
-                ? 'bg-foreground text-surface hover:opacity-90'
-                : 'cursor-not-allowed bg-foreground/40 text-surface/80'
+                ? 'border border-border bg-transparent text-muted hover:border-foreground hover:text-foreground'
+                : 'cursor-not-allowed border border-border bg-transparent text-muted opacity-50'
             }`}
           >
             <DocumentIcon className="mr-2 h-5 w-5" />
-            Download CV
+            Download resume (PDF)
           </motion.a>
         </motion.div>
       </div>
