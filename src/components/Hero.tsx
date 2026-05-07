@@ -52,6 +52,7 @@ export function Hero() {
   const sublineAnimation = createFadeUpReveal(shouldReduceMotion, 0.26)
   const actionsAnimation = createFadeUpReveal(shouldReduceMotion, 0.32)
   const actionAnimation = createActionAnimation(shouldReduceMotion)
+  const hasCv = site.cvPdfUrl.trim().length > 0
 
   return (
     <section id="hero" className="border-b border-border px-4 py-16 sm:px-6 sm:py-24">
@@ -88,13 +89,18 @@ export function Hero() {
           </motion.a>
           <motion.a
             {...actionAnimation}
-            href={site.cvPdfUrl}
-            download={cvPdfDownloadFilename}
-            onClick={onResumePdfLinkClick}
-            className="inline-flex items-center rounded-lg border border-border bg-transparent px-5 py-2.5 text-sm font-medium text-muted hover:border-foreground hover:text-foreground transition-colors"
+            href={hasCv ? site.cvPdfUrl : undefined}
+            download={hasCv ? cvPdfDownloadFilename : undefined}
+            onClick={hasCv ? onResumePdfLinkClick : (e) => e.preventDefault()}
+            aria-disabled={!hasCv}
+            className={`inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-medium transition-opacity ${
+              hasCv
+                ? 'border border-border bg-transparent text-muted hover:border-foreground hover:text-foreground'
+                : 'cursor-not-allowed border border-border bg-transparent text-muted opacity-50'
+            }`}
           >
             <DocumentIcon className="mr-2 h-5 w-5" />
-              Download resume (PDF)
+            Download resume (PDF)
           </motion.a>
         </motion.div>
       </div>

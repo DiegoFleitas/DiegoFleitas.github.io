@@ -1,30 +1,27 @@
 import { aboutSummary } from '../data/about'
-import { experience } from '../data/experience'
 import { ImageCarousel, type CarouselSlide } from './ImageCarousel'
 
-function experienceBadge(company: string): CarouselSlide['badgeLogo'] {
-  const entry = experience.find((e) => e.company === company)
-  const src = entry?.logoUrl
+function companyBadge(src: string, alt: string): CarouselSlide['badgeLogo'] {
   if (!src) return undefined
-  return { src, alt: entry.company }
+  return { src, alt }
 }
 
 const aboutCarouselSlides: readonly CarouselSlide[] = [
   {
     src: '/tmia-team-photo1.jpg',
     alt: 'Team photo',
-    badgeLogo: experienceBadge('TiendaMIA'),
+    badgeLogo: companyBadge('/logos/tiendamia.png', 'TiendaMIA'),
   },
   {
     src: '/cds-photo2.jpg',
     alt: 'Team at Código del Sur',
-    badgeLogo: experienceBadge('CodigoDelSur'),
+    badgeLogo: companyBadge('/logos/codigodelsur.png', 'CodigoDelSur'),
   },
   {
     src: '/tarmac-client-dinner.jpg',
     alt: 'Group dinner with a client team after a week of on-site collaboration',
     coverObjectPosition: 'top',
-    badgeLogo: experienceBadge('Tarmac.IO'),
+    badgeLogo: companyBadge('/logos/tarmac-purple.png', 'Tarmac.IO'),
   },
 ]
 

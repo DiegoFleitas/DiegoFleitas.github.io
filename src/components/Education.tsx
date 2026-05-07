@@ -2,9 +2,6 @@ import { useState } from 'react'
 import { education, type EducationEntry } from '../data/education'
 import { getTimelineImageUrl } from '../lib/logo'
 
-const INTRO =
-  'Formal education and certifications that built the foundation for my work in software development.'
-
 type TimelineEntryProps = Readonly<{
   entry: EducationEntry
   isLast: boolean
@@ -131,7 +128,6 @@ export function Education() {
         <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
           Education
         </h2>
-        <p className="mt-3 text-sm text-muted sm:text-base">{INTRO}</p>
         <ul className="mt-8 list-none">
           {visible.map((entry, i) => (
             <TimelineEntry

@@ -5,7 +5,7 @@ export interface EducationEntry {
   date: string
   duration?: string
   bullets?: string[]
-  /** Local logo path for timeline node (e.g. /logos/utec.png). */
+  /** Local logo path for timeline node (e.g. /logos/udelar.png). */
   logoUrl?: string
   /** When true, omitted from the public timeline. */
   hidden?: boolean
@@ -16,7 +16,7 @@ export const education: EducationEntry[] = [
     degree: 'Technologist Degree in Computer Science',
     institution: 'UTEC · DGETP‑UTU · Universidad de la República (UdelaR)',
     date: '2018',
-    logoUrl: '/logos/utec.png',
+    logoUrl: '/logos/udelar.png',
     bullets: [
       'Joint technologist program focused on development, implementation, maintenance, and management of computer systems.',
       'Emphasis on practical classes and active learning; jointly managed and awarded by UTEC, DGETP‑UTU, and UdelaR.',
