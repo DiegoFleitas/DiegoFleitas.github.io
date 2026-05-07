@@ -1,15 +1,41 @@
 import '@testing-library/jest-dom/vitest'
 
+function createLocalStorageMock(): Storage {
+  let store: Record<string, string> = {}
+  return {
+    getItem: (key: string) => store[key] ?? null,
+    setItem: (key: string, value: string) => {
+      store[key] = value
+    },
+    removeItem: (key: string) => {
+      delete store[key]
+    },
+    clear: () => {
+      store = {}
+    },
+    get length() {
+      return Object.keys(store).length
+    },
+    key: (i: number) => Object.keys(store)[i] ?? null,
+  }
+}
+
+Object.defineProperty(globalThis, 'localStorage', {
+  value: createLocalStorageMock(),
+  writable: true,
+  configurable: true,
+})
+
 // JSDOM does not implement IntersectionObserver
 class MockIntersectionObserver implements IntersectionObserver {
   readonly root: Element | null = null
   readonly rootMargin: string = ''
   readonly scrollMargin: string = ''
   readonly thresholds: ReadonlyArray<number> = []
-  private observed: Set<Element> = new Set()
+  private readonly observed: Set<Element> = new Set()
 
   constructor(
-    private callback: IntersectionObserverCallback,
+    private readonly callback: IntersectionObserverCallback,
     _options?: IntersectionObserverInit
   ) {}
 

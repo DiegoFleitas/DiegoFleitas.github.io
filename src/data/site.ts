@@ -1,3 +1,10 @@
+/**
+ * Resume PDF is deployed from `public/` with the site (GitHub Pages). Filename must match the file in `public/`.
+ */
+export const cvPdfDownloadFilename = 'Diego-Fleitas-Resume.pdf'
+
+export const cvPdfUrl = `/${cvPdfDownloadFilename}` as const
+
 export const site = {
   name: 'Diego Fleitas',
   tagline: 'Backend-first Software Engineer',
@@ -9,5 +16,5 @@ export const site = {
   githubHandle: 'DiegoFleitas',
   linkedin: 'https://www.linkedin.com/in/diego-fleitas/',
   linkedinHandle: 'diego-fleitas',
-  cvPdfUrl: '', // optional: add URL to your PDF for "View CV"
+  cvPdfUrl,
 } as const

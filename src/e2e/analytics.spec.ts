@@ -12,7 +12,7 @@ test('analytics emits expected custom events from user interactions', async ({ p
 
   await page.goto('/')
 
-  await page.getByRole('link', { name: 'About me' }).click()
+  await page.getByRole('link', { name: 'About' }).click()
   await page.getByRole('button', { name: /Switch to/i }).click()
   await page.getByRole('link', { name: /demo/i }).first().click({ modifiers: ['Meta'] }).catch(() => {})
   await page.getByRole('link', { name: 'Repository' }).first().click({ modifiers: ['Meta'] }).catch(() => {})
@@ -20,9 +20,11 @@ test('analytics emits expected custom events from user interactions', async ({ p
   await page.getByLabel(/^GitHub:/).click({ modifiers: ['Meta'] }).catch(() => {})
   await page.getByLabel(/^LinkedIn:/).click({ modifiers: ['Meta'] }).catch(() => {})
 
+  await page.getByRole('link', { name: 'Download resume (PDF)', exact: true }).click()
+
   // Browser queues gtag calls as IArguments; normalize to arrays for assertions.
   const dataLayer = await page.evaluate<DataLayerEvent[]>(() => {
-    const dl = window.dataLayer ?? []
+    const dl = (globalThis as unknown as Window).dataLayer ?? []
     return dl.map((entry) =>
       Array.from(entry as ArrayLike<unknown>)
     ) as DataLayerEvent[]
@@ -35,6 +37,7 @@ test('analytics emits expected custom events from user interactions', async ({ p
   expect(eventNames).toContain('theme_toggle')
   expect(eventNames).toContain('project_click')
   expect(eventNames).toContain('contact_click')
+  expect(eventNames).toContain('file_download')
   expect(eventNames).toContain('view_section')
 
   // If GA loads in the test environment, collect requests should be visible.

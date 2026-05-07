@@ -36,11 +36,11 @@ describe('App', () => {
 
     expect(calls).toEqual(
       expect.arrayContaining([
-        { section_name: 'hero' },
-        { section_name: 'about' },
-        { section_name: 'experience' },
-        { section_name: 'education' },
-        { section_name: 'projects' },
+        expect.objectContaining({ section_name: 'hero' }),
+        expect.objectContaining({ section_name: 'about' }),
+        expect.objectContaining({ section_name: 'experience' }),
+        expect.objectContaining({ section_name: 'education' }),
+        expect.objectContaining({ section_name: 'projects' }),
       ])
     )
   })

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { experience, type ExperienceEntry } from '../data/experience'
-import { site } from '../data/site'
+import { cvPdfDownloadFilename, site } from '../data/site'
+import { onResumePdfLinkClick } from '../utils/downloadResumePdf'
 import { getTimelineImageUrl } from '../lib/logo'
 
 const INTRO =
@@ -139,16 +140,14 @@ export function Experience() {
           <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
             Experience
           </h2>
-          {site.cvPdfUrl && (
-            <a
-              href={site.cvPdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
-            >
-              Download CV →
-            </a>
-          )}
+          <a
+            href={site.cvPdfUrl}
+            download={cvPdfDownloadFilename}
+            onClick={onResumePdfLinkClick}
+            className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+          >
+            Download resume (PDF) →
+          </a>
         </div>
         <p className="mt-3 text-sm text-muted sm:text-base">
           {INTRO}
