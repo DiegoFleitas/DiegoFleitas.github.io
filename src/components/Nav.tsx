@@ -9,6 +9,7 @@ const links = [
   { href: '#experience', label: 'Work' },
   { href: '#education', label: 'Education' },
   { href: '#projects', label: 'OSS' },
+  { href: '#hero', label: 'Contact' },
 ]
 
 export function Nav() {
@@ -20,14 +21,14 @@ export function Nav() {
 
   useEffect(() => {
     const nextActiveFromHash = () => {
-      const hash = window.location.hash
+      const hash = globalThis.location.hash
       const match = links.find((link) => link.href === hash)
       setActiveHref(match?.href ?? defaultHref)
     }
 
     nextActiveFromHash()
-    window.addEventListener('hashchange', nextActiveFromHash)
-    return () => window.removeEventListener('hashchange', nextActiveFromHash)
+    globalThis.addEventListener('hashchange', nextActiveFromHash)
+    return () => globalThis.removeEventListener('hashchange', nextActiveFromHash)
   }, [defaultHref])
 
   const linkClassName = useMemo(
@@ -43,15 +44,15 @@ export function Nav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
-      <div className="mx-auto flex max-w-4xl items-center justify-end px-4 py-3 sm:px-6">
-        <ul className="flex items-center gap-6">
+      <div className="mx-auto max-w-4xl overflow-x-auto px-2 py-3 sm:px-6">
+        <ul className="flex min-w-max items-center justify-start gap-4 sm:justify-end sm:gap-6">
           {links.map(({ href, label }) => (
             <li key={href}>
               <motion.a
                 {...actionAnimation}
                 href={href}
                 aria-current={activeHref === href ? 'page' : undefined}
-                className={`${linkClassName} ${activeHref === href ? 'text-foreground' : 'text-muted hover:text-foreground'}`}
+                className={`${linkClassName} text-xs sm:text-sm ${activeHref === href ? 'text-foreground' : 'text-muted hover:text-foreground'}`}
                 onClick={() => {
                   setActiveHref(href)
                   trackEvent('nav_click', { destination: href.slice(1) })

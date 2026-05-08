@@ -4,7 +4,7 @@ import { trackEvent } from '../utils/analytics'
 const year = new Date().getFullYear()
 const iconSize = 24
 
-function MailLogo({ className }: { className?: string }) {
+function MailLogo({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ function MailLogo({ className }: { className?: string }) {
   )
 }
 
-function GitHubLogo({ className }: { className?: string }) {
+function GitHubLogo({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ function GitHubLogo({ className }: { className?: string }) {
   )
 }
 
-function LinkedInLogo({ className }: { className?: string }) {
+function LinkedInLogo({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -64,10 +64,10 @@ export function Footer() {
         <span className="text-sm text-muted">
           © {year} {site.name}
         </span>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3">
           <a
             href={`mailto:${site.email}`}
-            className="text-muted hover:text-foreground transition-colors"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:text-foreground"
             aria-label={`Email: ${site.email}`}
             onClick={() => trackEvent('contact_click', { type: 'email' })}
           >
@@ -77,7 +77,7 @@ export function Footer() {
             href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-foreground transition-colors"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:text-foreground"
             aria-label={`GitHub: ${site.githubHandle}`}
             onClick={() => trackEvent('contact_click', { type: 'github' })}
           >
@@ -87,7 +87,7 @@ export function Footer() {
             href={site.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-foreground transition-colors"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:text-foreground"
             aria-label={`LinkedIn: ${site.linkedinHandle}`}
             onClick={() => trackEvent('contact_click', { type: 'linkedin' })}
           >
