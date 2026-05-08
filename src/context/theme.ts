@@ -3,20 +3,20 @@ import { createContext, useContext } from 'react'
 export type Theme = 'light' | 'dark'
 
 export function getStoredTheme(): Theme | null {
-  if (typeof window === 'undefined') return null
+  if (globalThis.window === undefined) return null
   const stored = localStorage.getItem('theme') as Theme | null
   return stored === 'light' || stored === 'dark' ? stored : null
 }
 
 export function getSystemTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark'
-  return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  if (globalThis.window === undefined) return 'dark'
+  return globalThis.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
 }
 
 export function getInitialTheme(): Theme {
   if (typeof document === 'undefined') return 'dark'
-  const attr = document.documentElement.getAttribute('data-theme') as Theme | null
-  return attr === 'light' || attr === 'dark' ? attr : getStoredTheme() ?? getSystemTheme()
+  const attr = document.documentElement.dataset.theme as Theme | undefined
+  return attr === 'light' || attr === 'dark' ? attr : getStoredTheme() ?? 'dark'
 }
 
 export type ThemeContextValue = { theme: Theme; setTheme: (theme: Theme) => void }
