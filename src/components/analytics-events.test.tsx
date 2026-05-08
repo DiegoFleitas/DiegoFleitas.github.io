@@ -56,7 +56,7 @@ describe('analytics event wiring', () => {
   it('tracks project demo and repository clicks', () => {
     render(<Projects />)
 
-    clickWithoutNavigation(screen.getAllByText('Demo')[0])
+    clickWithoutNavigation(screen.getAllByRole('link', { name: /demo/i })[0])
     expect(trackEvent).toHaveBeenCalledWith(
       'project_click',
       expect.objectContaining({ type: 'demo', project_title: expect.any(String) })

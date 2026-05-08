@@ -122,7 +122,7 @@ export function Education() {
   return (
     <section
       id="education"
-      className="scroll-mt-20 border-b border-border px-4 py-14 sm:px-6 sm:py-20"
+      className="scroll-mt-20 px-4 py-14 sm:px-6 sm:py-20"
     >
       <div className="mx-auto max-w-3xl">
         <h2 className="text-2xl font-bold text-foreground sm:text-3xl">

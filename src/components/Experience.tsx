@@ -71,7 +71,7 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="scroll-mt-20 border-b border-border px-4 py-14 sm:px-6 sm:py-20"
+      className="scroll-mt-20 px-4 py-14 sm:px-6 sm:py-20"
     >
       <div className="mx-auto max-w-3xl">
         <div className="flex flex-wrap items-start justify-between gap-3">

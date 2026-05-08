@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { createActionAnimation, createFadeUpReveal } from '../lib/motion'
 import { cvPdfDownloadFilename, site } from '../data/site'
@@ -7,7 +8,7 @@ type IconProps = Readonly<{
   className?: string
 }>
 
-function DocumentIcon({ className }: IconProps) {
+function DownloadCloudIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +23,9 @@ function DocumentIcon({ className }: IconProps) {
       className={className}
       aria-hidden
     >
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <path d="M14 2v6h6" />
+      <path d="M20 16.5a4.5 4.5 0 0 0-1.1-8.86A6 6 0 1 0 6 14H7.5" />
+      <path d="M12 12v9" />
+      <path d="m8.5 17.5 3.5 3.5 3.5-3.5" />
     </svg>
   )
 }
@@ -46,6 +48,66 @@ function LinkedInIcon({ className }: IconProps) {
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion() ?? false
+  const [sublinePrimary, sublineSecondary] = site.subline.split(' · ')
+  const rotatingRoles = [
+    'Full Stack Developer',
+    'Back-end Developer',
+    'Software Developer',
+  ] as const
+  const [roleIndex, setRoleIndex] = useState(0)
+  const fullTagline = rotatingRoles[roleIndex] ?? site.tagline
+  const [typedTagline, setTypedTagline] = useState('')
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      return
+    }
+
+    let index = 0
+    let isDeleting = false
+    let timeoutId: ReturnType<typeof globalThis.setTimeout> | null = null
+
+    timeoutId = globalThis.setTimeout(() => {
+      setTypedTagline('')
+    }, 0)
+
+    const tick = () => {
+      if (!isDeleting) {
+        index += 1
+        setTypedTagline(fullTagline.slice(0, index))
+
+        if (index >= fullTagline.length) {
+          isDeleting = true
+          timeoutId = globalThis.setTimeout(tick, 1200)
+          return
+        }
+
+        timeoutId = globalThis.setTimeout(tick, 55)
+        return
+      }
+
+      index -= 1
+      setTypedTagline(fullTagline.slice(0, Math.max(index, 0)))
+
+      if (index <= 0) {
+        setRoleIndex((prev) => (prev + 1) % rotatingRoles.length)
+        return
+      }
+
+      timeoutId = globalThis.setTimeout(tick, 35)
+    }
+
+    timeoutId = globalThis.setTimeout(tick, 120)
+
+    return () => {
+      if (timeoutId !== null) {
+        globalThis.clearTimeout(timeoutId)
+      }
+    }
+  }, [fullTagline, rotatingRoles.length, shouldReduceMotion])
+
+  const displayedTagline = shouldReduceMotion ? fullTagline : typedTagline
+
   const headingAnimation = createFadeUpReveal(shouldReduceMotion, 0.05)
   const taglineAnimation = createFadeUpReveal(shouldReduceMotion, 0.12)
   const pitchAnimation = createFadeUpReveal(shouldReduceMotion, 0.2)
@@ -55,16 +117,25 @@ export function Hero() {
   const hasCv = site.cvPdfUrl.trim().length > 0
 
   return (
-    <section id="hero" className="border-b border-border px-4 py-16 sm:px-6 sm:py-24">
+    <section id="hero" className="px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-4xl text-center">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">
+          Full Stack Software Engineer
+        </p>
         <motion.h1
           {...headingAnimation}
-          className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+          className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
         >
-          {site.name}
+          Hello, I'm {site.name}
         </motion.h1>
         <motion.p {...taglineAnimation} className="mt-3 text-xl text-muted">
-          {site.tagline}
+          <span>{displayedTagline}</span>
+          {!shouldReduceMotion && displayedTagline.length < fullTagline.length && (
+            <span
+              aria-hidden
+              className="ml-0.5 inline-block h-[1.05em] w-[1.5px] translate-y-[2px] animate-pulse bg-current align-bottom opacity-80"
+            />
+          )}
         </motion.p>
         {site.heroPitch && (
           <motion.p {...pitchAnimation} className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted">
@@ -72,35 +143,48 @@ export function Hero() {
           </motion.p>
         )}
         {site.subline && (
-          <motion.p {...sublineAnimation} className="mt-1 text-sm text-muted">
-            {site.subline}
+          <motion.p
+            {...sublineAnimation}
+            className="mx-auto mt-1 max-w-[34ch] text-sm leading-relaxed text-muted sm:max-w-none"
+          >
+            <span className="block sm:inline">{sublinePrimary}</span>
+            {sublineSecondary && (
+              <>
+                <span className="hidden sm:inline"> · </span>
+                <span className="block sm:inline">{sublineSecondary}</span>
+              </>
+            )}
           </motion.p>
         )}
         <motion.div {...actionsAnimation} className="mt-8 flex flex-wrap justify-center gap-4">
-          <motion.a
-            {...actionAnimation}
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-lg border border-border bg-transparent px-5 py-2.5 text-sm font-medium text-muted hover:border-foreground hover:text-foreground transition-colors"
-          >
-            <LinkedInIcon className="mr-2 h-5 w-5" />
-            Connect on LinkedIn
-          </motion.a>
           <motion.a
             {...actionAnimation}
             href={hasCv ? site.cvPdfUrl : undefined}
             download={hasCv ? cvPdfDownloadFilename : undefined}
             onClick={hasCv ? onResumePdfLinkClick : (e) => e.preventDefault()}
             aria-disabled={!hasCv}
-            className={`inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-medium transition-opacity ${
+            className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold leading-none transition-all duration-200 ${
               hasCv
-                ? 'border border-border bg-transparent text-muted hover:border-foreground hover:text-foreground'
-                : 'cursor-not-allowed border border-border bg-transparent text-muted opacity-50'
+                ? 'bg-[#e04657] text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#cd3c4c] hover:shadow-md'
+                : 'cursor-not-allowed border border-border bg-surface-elevated text-muted opacity-50'
             }`}
           >
-            <DocumentIcon className="mr-2 h-5 w-5" />
-            Download resume (PDF)
+            <span className="inline-flex h-5 w-5 items-center justify-center">
+              <DownloadCloudIcon className="h-[18px] w-[18px] shrink-0" />
+            </span>
+            <span className="leading-none">Download Resume</span>
+          </motion.a>
+          <motion.a
+            {...actionAnimation}
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-transparent px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground hover:text-foreground"
+          >
+            <span className="inline-flex h-5 w-5 items-center justify-center">
+              <LinkedInIcon className="h-5 w-5 shrink-0 translate-y-[0.5px]" />
+            </span>
+            <span className="leading-none">Message me on LinkedIn</span>
           </motion.a>
         </motion.div>
       </div>
