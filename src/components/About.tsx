@@ -49,7 +49,7 @@ export function About() {
           />
 
           <figcaption className="mt-3 max-w-prose text-sm leading-relaxed text-foreground/70">
-            Some of the people I'm grateful to have crossed paths with (•◡•)
+            Some of the people I'm grateful to have crossed paths with c:
           </figcaption>
         </figure>
       </div>
