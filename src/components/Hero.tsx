@@ -113,79 +113,96 @@ export function Hero() {
   const pitchAnimation = createFadeUpReveal(shouldReduceMotion, 0.2)
   const sublineAnimation = createFadeUpReveal(shouldReduceMotion, 0.26)
   const actionsAnimation = createFadeUpReveal(shouldReduceMotion, 0.32)
+  const photoAnimation = createFadeUpReveal(shouldReduceMotion, 0.02)
   const actionAnimation = createActionAnimation(shouldReduceMotion)
   const hasCv = site.cvPdfUrl.trim().length > 0
 
   return (
     <section id="hero" className="px-4 py-16 sm:px-6 sm:py-24">
-      <div className="mx-auto max-w-4xl text-center">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">
-          Full Stack Software Engineer
-        </p>
-        <motion.h1
-          {...headingAnimation}
-          className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-        >
-          Hello, I'm {site.name}
-        </motion.h1>
-        <motion.p {...taglineAnimation} className="mt-3 text-xl text-muted">
-          <span>{displayedTagline}</span>
-          {!shouldReduceMotion && displayedTagline.length < fullTagline.length && (
-            <span
-              aria-hidden
-              className="ml-0.5 inline-block h-[1.05em] w-[1.5px] translate-y-[2px] animate-pulse bg-current align-bottom opacity-80"
-            />
-          )}
-        </motion.p>
-        {site.heroPitch && (
-          <motion.p {...pitchAnimation} className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted">
-            {site.heroPitch}
-          </motion.p>
-        )}
-        {site.subline && (
-          <motion.p
-            {...sublineAnimation}
-            className="mx-auto mt-1 max-w-[34ch] text-sm leading-relaxed text-muted sm:max-w-none"
+      <div className="mx-auto flex max-w-5xl flex-col-reverse items-center justify-center gap-10 md:flex-row md:items-center md:gap-12 lg:gap-16">
+        <div className="w-full min-w-0 text-center md:max-w-xl md:text-left">
+          <p className="text-xs uppercase tracking-[0.3em] text-muted">
+            Full Stack Software Engineer
+          </p>
+          <motion.h1
+            {...headingAnimation}
+            className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
-            <span className="block sm:inline">{sublinePrimary}</span>
-            {sublineSecondary && (
-              <>
-                <span className="hidden sm:inline"> · </span>
-                <span className="block sm:inline">{sublineSecondary}</span>
-              </>
+            Hello, I'm {site.name}
+          </motion.h1>
+          <motion.p {...taglineAnimation} className="mt-3 text-xl text-muted">
+            <span>{displayedTagline}</span>
+            {!shouldReduceMotion && displayedTagline.length < fullTagline.length && (
+              <span
+                aria-hidden
+                className="ml-0.5 inline-block h-[1.05em] w-[1.5px] translate-y-[2px] animate-pulse bg-current align-bottom opacity-80"
+              />
             )}
           </motion.p>
-        )}
-        <motion.div {...actionsAnimation} className="mt-8 flex flex-wrap justify-center gap-4">
-          <motion.a
-            {...actionAnimation}
-            href={hasCv ? site.cvPdfUrl : undefined}
-            download={hasCv ? cvPdfDownloadFilename : undefined}
-            onClick={hasCv ? onResumePdfLinkClick : (e) => e.preventDefault()}
-            aria-disabled={!hasCv}
-            className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold leading-none transition-all duration-200 ${
-              hasCv
-                ? 'bg-[#e04657] text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#cd3c4c] hover:shadow-md'
-                : 'cursor-not-allowed border border-border bg-surface-elevated text-muted opacity-50'
-            }`}
-          >
-            <span className="inline-flex h-5 w-5 items-center justify-center">
-              <DownloadCloudIcon className="h-[18px] w-[18px] shrink-0" />
-            </span>
-            <span className="leading-none">Download Resume</span>
-          </motion.a>
-          <motion.a
-            {...actionAnimation}
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-transparent px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground hover:text-foreground"
-          >
-            <span className="inline-flex h-5 w-5 items-center justify-center">
-              <LinkedInIcon className="h-5 w-5 shrink-0 translate-y-[0.5px]" />
-            </span>
-            <span className="leading-none">Message me on LinkedIn</span>
-          </motion.a>
+          {site.heroPitch && (
+            <motion.p
+              {...pitchAnimation}
+              className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted md:mx-0"
+            >
+              {site.heroPitch}
+            </motion.p>
+          )}
+          {site.subline && (
+            <motion.p
+              {...sublineAnimation}
+              className="mx-auto mt-1 max-w-[34ch] text-sm leading-relaxed text-muted sm:max-w-none md:mx-0"
+            >
+              <span className="block sm:inline">{sublinePrimary}</span>
+              {sublineSecondary && (
+                <>
+                  <span className="hidden sm:inline"> · </span>
+                  <span className="block sm:inline">{sublineSecondary}</span>
+                </>
+              )}
+            </motion.p>
+          )}
+          <motion.div {...actionsAnimation} className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
+            <motion.a
+              {...actionAnimation}
+              href={hasCv ? site.cvPdfUrl : undefined}
+              download={hasCv ? cvPdfDownloadFilename : undefined}
+              onClick={hasCv ? onResumePdfLinkClick : (e) => e.preventDefault()}
+              aria-disabled={!hasCv}
+              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold leading-none transition-all duration-200 ${
+                hasCv
+                  ? 'bg-[#e04657] text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#cd3c4c] hover:shadow-md'
+                  : 'cursor-not-allowed border border-border bg-surface-elevated text-muted opacity-50'
+              }`}
+            >
+              <span className="inline-flex h-5 w-5 items-center justify-center">
+                <DownloadCloudIcon className="h-[18px] w-[18px] shrink-0" />
+              </span>
+              <span className="leading-none">Download Resume</span>
+            </motion.a>
+            <motion.a
+              {...actionAnimation}
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-transparent px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground hover:text-foreground"
+            >
+              <span className="inline-flex h-5 w-5 items-center justify-center">
+                <LinkedInIcon className="h-5 w-5 shrink-0 translate-y-[0.5px]" />
+              </span>
+              <span className="leading-none">Message me on LinkedIn</span>
+            </motion.a>
+          </motion.div>
+        </div>
+        <motion.div {...photoAnimation} className="shrink-0">
+          <img
+            src="/me.jpg"
+            alt={`Portrait of ${site.name}`}
+            width={256}
+            height={256}
+            className="aspect-square h-44 w-44 rounded-full border border-border object-cover shadow-lg ring-1 ring-border/60 sm:h-52 sm:w-52 md:h-64 md:w-64"
+            decoding="async"
+            fetchPriority="high"
+          />
         </motion.div>
       </div>
     </section>
