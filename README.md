@@ -17,6 +17,7 @@ Open `http://localhost:5173` (WSL: access via the WSL IP since the dev server bi
 
 Pushes to `main` run lint, tests, build, and deploy to GitHub Pages automatically. Enable via **Settings → Pages → Source → GitHub Actions** (one-time).
 
+
 ## License
 
 [MIT](LICENSE)
