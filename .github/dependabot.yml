@@ -1,0 +1,47 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+          - "@vitejs/plugin-react"
+          - "eslint-plugin-react-hooks"
+          - "eslint-plugin-react-refresh"
+      build:
+        patterns:
+          - "vite"
+          - "vitest"
+          - "@tailwindcss/*"
+          - "tailwindcss"
+          - "motion"
+      typescript:
+        patterns:
+          - "typescript"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
+      lint-test:
+        patterns:
+          - "eslint"
+          - "@eslint/*"
+          - "globals"
+          - "lint-staged"
+          - "@playwright/*"
+          - "playwright"
+          - "@testing-library/*"
+          - "jsdom"
+          - "husky"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    target-branch: "main"
