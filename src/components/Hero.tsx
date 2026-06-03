@@ -120,11 +120,10 @@ export function Hero() {
               download={hasCv ? cvPdfDownloadFilename : undefined}
               onClick={hasCv ? onResumePdfLinkClick : (e) => e.preventDefault()}
               aria-disabled={!hasCv}
-              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold leading-none transition-all duration-200 ${
-                hasCv
-                  ? 'bg-[#e04657] text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#cd3c4c] hover:shadow-md'
-                  : 'cursor-not-allowed border border-border bg-surface-elevated text-muted opacity-50'
-              }`}
+              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold leading-none transition-all duration-200 ${hasCv
+                ? 'bg-[#e04657] text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#cd3c4c] hover:shadow-md'
+                : 'cursor-not-allowed border border-border bg-surface-elevated text-muted opacity-50'
+                }`}
             >
               <span className="inline-flex h-5 w-5 items-center justify-center">
                 <DownloadCloudIcon className="h-[18px] w-[18px] shrink-0" />
@@ -147,7 +146,7 @@ export function Hero() {
         </div>
         <motion.div {...photoAnimation} className="shrink-0">
           <img
-            src="/me.jpg"
+            src="/closeup_pale_green.png"
             alt={`Portrait of ${site.name}`}
             width={256}
             height={256}
