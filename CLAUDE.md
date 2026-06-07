@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev          # start dev server at localhost:5173
+pnpm dev          # start dev server at localhost:5173 (already binds all interfaces via vite.config.ts — access via WSL IP from Windows browser)
 pnpm build        # type-check + production build
 pnpm preview      # preview production build
 pnpm test         # run unit tests (vitest, single run)
