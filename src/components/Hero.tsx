@@ -81,8 +81,8 @@ export function Hero() {
   const hasCv = site.cvPdfUrl.trim().length > 0
 
   return (
-    <section id="hero" className="px-4 py-16 sm:px-6 sm:py-24">
-      <div className="mx-auto flex max-w-5xl flex-col-reverse items-center justify-center gap-10 md:flex-row md:items-center md:gap-12 lg:gap-16">
+    <section id="hero" className="flex items-center px-4 py-16 sm:px-6 sm:py-20">
+      <div className="mx-auto flex w-full max-w-5xl flex-col-reverse items-center justify-center gap-10 md:flex-row md:items-center md:gap-12 lg:gap-16">
         <div className="w-full min-w-0 text-center md:max-w-xl md:text-left">
           <motion.h1
             {...headingAnimation}
@@ -135,7 +135,7 @@ export function Hero() {
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-transparent px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground hover:text-foreground"
+              className="inline-flex items-center gap-2 rounded-full border border-foreground/30 bg-surface-elevated px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/70 hover:text-foreground"
             >
               <span className="inline-flex h-5 w-5 items-center justify-center">
                 <LinkedInIcon className="h-5 w-5 shrink-0 translate-y-[0.5px]" />
@@ -151,6 +151,7 @@ export function Hero() {
             width={256}
             height={256}
             className="aspect-square h-44 w-44 rounded-full border border-border object-cover shadow-lg ring-1 ring-border/60 sm:h-52 sm:w-52 md:h-64 md:w-64"
+            style={{ filter: 'var(--photo-filter)' }}
             decoding="async"
             fetchPriority="high"
           />

@@ -4,6 +4,7 @@
 @layer base {
   :root,
   [data-theme="dark"] {
+    --photo-filter: saturate(0.15) brightness(0.95);
     --bg: #0d0d0d;
     --bg-elevated: #141414;
     --border: #262626;
@@ -29,16 +30,17 @@
     --text: #171717;
     --text-muted: #737373;
     --accent: #262626;
-    /* Softer, warmer tints that read on white; cursor = subtle shadow */
-    --spot-a: rgba(96, 165, 250, 0.14);
-    --spot-b: rgba(167, 139, 250, 0.12);
-    --spot-c: rgba(74, 222, 128, 0.1);
-    --gradient-1: rgba(96, 165, 250, 0.12);
-    --gradient-2: rgba(167, 139, 250, 0.1);
-    --gradient-3: rgba(74, 222, 128, 0.08);
+    /* Same hue family as dark mode (blue/cyan/green), adjusted opacity for white bg */
+    --spot-a: rgba(96, 165, 250, 0.18);
+    --spot-b: rgba(34, 211, 238, 0.14);
+    --spot-c: rgba(74, 222, 128, 0.12);
+    --gradient-1: rgba(96, 165, 250, 0.14);
+    --gradient-2: rgba(34, 211, 238, 0.11);
+    --gradient-3: rgba(74, 222, 128, 0.09);
     --cursor-glow: rgba(100, 116, 139, 0.12);
     --bg-layer-spots-opacity: 1;
     --bg-layer-spin-opacity: 0.22;
+    --photo-filter: saturate(0.7);
   }
 
   html {
@@ -57,6 +59,16 @@
     html {
       scroll-behavior: auto;
     }
+  }
+}
+
+#hero {
+  min-height: calc(100vh - 4rem);
+}
+
+@supports (height: 1svh) {
+  #hero {
+    min-height: calc(100svh - 4rem);
   }
 }
 
