@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [tailwindcss(), react()],
   // Served from site root (e.g. diegofleitas.github.io). For project site at /portfolio/, use base: '/portfolio/'
   base: '/',
+  server: { host: true },
   test: {
     globals: true,
     environment: 'jsdom',
