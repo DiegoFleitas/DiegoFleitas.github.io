@@ -87,7 +87,7 @@ export function Experience() {
               onClick={onResumePdfLinkClick}
               className="text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
-              Download resume (PDF) →
+              Download resume (PDF)
             </a>
           ) : null}
         </div>
