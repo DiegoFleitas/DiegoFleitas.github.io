@@ -26,3 +26,5 @@ dist-ssr
 .env
 
 .pnpm-store/
+
+.claude/settings.local.json
