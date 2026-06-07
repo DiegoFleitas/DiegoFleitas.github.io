@@ -11,7 +11,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:5173`. Other commands: `pnpm build`, `pnpm preview`, `pnpm test`, `pnpm lint`.
+Open `http://localhost:5173` (WSL: access via the WSL IP since the dev server binds to all interfaces). Other commands: `pnpm build`, `pnpm preview`, `pnpm test`, `pnpm lint`.
 
 ## Deploy
 
