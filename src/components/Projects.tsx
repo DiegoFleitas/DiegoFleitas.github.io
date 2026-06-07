@@ -2,9 +2,31 @@ import { projectsApps } from '../data/projects'
 import { trackEvent } from '../utils/analytics'
 import type { Project } from '../data/projects'
 
+function ExternalLinkIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={12}
+      height={12}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className="inline-block shrink-0 translate-y-[-1px]"
+    >
+      <path d="M15 3h6v6" />
+      <path d="M10 14 21 3" />
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    </svg>
+  )
+}
+
 function ProjectCard({ project }: Readonly<{ project: Project }>) {
   return (
-    <li className="py-6">
+    <li className="border-t border-border py-8 first:border-t-0">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -25,7 +47,7 @@ function ProjectCard({ project }: Readonly<{ project: Project }>) {
               aria-label={`${project.title} demo`}
               onClick={() => trackEvent('project_click', { type: 'demo', project_title: project.title })}
             >
-              Demo ↗
+              Demo <ExternalLinkIcon />
             </a>
           )}
           <a
@@ -33,9 +55,10 @@ function ProjectCard({ project }: Readonly<{ project: Project }>) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-muted underline decoration-muted/50 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/70"
+            aria-label={`${project.title} repository`}
             onClick={() => trackEvent('project_click', { type: 'repo', project_title: project.title })}
           >
-            Repository
+            Repository <ExternalLinkIcon />
           </a>
         </div>
       </div>
