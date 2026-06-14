@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { experience, type ExperienceEntry } from '../data/experience'
-import { cvPdfDownloadFilename, site } from '../data/site'
-import { onResumePdfLinkClick } from '../utils/downloadResumePdf'
 import { getTimelineImageUrl } from '../lib/logo'
 
 function timelineEntryKey(entry: ExperienceEntry) {
@@ -66,7 +64,6 @@ function TimelineEntry({ entry, isLast }: TimelineEntryProps) {
 
 export function Experience() {
   const visible = experience.filter((entry) => !entry.hidden)
-  const hasCv = site.cvPdfUrl.trim().length > 0
 
   return (
     <section
@@ -74,23 +71,9 @@ export function Experience() {
       className="scroll-mt-20 px-4 py-14 sm:px-6 sm:py-20"
     >
       <div className="mx-auto max-w-3xl">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-              Work experience
-            </h2>
-          </div>
-          {hasCv ? (
-            <a
-              href={site.cvPdfUrl}
-              download={cvPdfDownloadFilename}
-              onClick={onResumePdfLinkClick}
-              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
-            >
-              Download resume (PDF)
-            </a>
-          ) : null}
-        </div>
+        <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
+          Work experience
+        </h2>
         <ul className="mt-8 list-none">
           {visible.map((entry, i) => (
             <TimelineEntry

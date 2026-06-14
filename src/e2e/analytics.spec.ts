@@ -20,7 +20,7 @@ test('analytics emits expected custom events from user interactions', async ({ p
   await page.getByLabel(/^GitHub:/).click({ modifiers: ['Meta'] }).catch(() => {})
   await page.getByLabel(/^LinkedIn:/).click({ modifiers: ['Meta'] }).catch(() => {})
 
-  await page.getByRole('link', { name: 'Download resume (PDF)', exact: true }).click()
+  await page.getByRole('link', { name: /download resume/i }).first().click()
 
   // Browser queues gtag calls as IArguments; normalize to arrays for assertions.
   const dataLayer = await page.evaluate<DataLayerEvent[]>(() => {
