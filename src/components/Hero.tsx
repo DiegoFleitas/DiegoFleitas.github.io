@@ -8,24 +8,19 @@ type IconProps = Readonly<{
   className?: string
 }>
 
-function DownloadCloudIcon({ className }: IconProps) {
+function DownloadIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={20}
-      height={20}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width={18}
+      height={18}
+      viewBox="0 0 16 16"
+      fill="currentColor"
       className={className}
       aria-hidden
     >
-      <path d="M20 16.5a4.5 4.5 0 0 0-1.1-8.86A6 6 0 1 0 6 14H7.5" />
-      <path d="M12 12v9" />
-      <path d="m8.5 17.5 3.5 3.5 3.5-3.5" />
+      <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+      <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
     </svg>
   )
 }
@@ -34,14 +29,14 @@ function LinkedInIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={20}
-      height={20}
-      viewBox="0 0 24 24"
+      width={18}
+      height={18}
+      viewBox="0 0 16 16"
       fill="currentColor"
       className={className}
       aria-hidden
     >
-      <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.5 1 3.88 1 4.98 2.12 4.98 3.5zM0 8.25h5v15.75H0V8.25zM8.75 8.25h4.8v2.15h.07c.67-1.27 2.3-2.6 4.73-2.6 5.06 0 6 3.33 6 7.67v8.53h-5v-7.56c0-1.8-.03-4.1-2.5-4.1-2.5 0-2.88 1.95-2.88 3.97v7.69h-5V8.25z" />
+      <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016c.005-.008.011-.016.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
     </svg>
   )
 }
@@ -126,7 +121,7 @@ export function Hero() {
                 }`}
             >
               <span className="inline-flex h-5 w-5 items-center justify-center">
-                <DownloadCloudIcon className="h-[18px] w-[18px] shrink-0" />
+                <DownloadIcon className="h-[18px] w-[18px] shrink-0" />
               </span>
               <span className="leading-none">Download Resume</span>
             </motion.a>
@@ -135,7 +130,7 @@ export function Hero() {
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/30 bg-surface-elevated px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/70 hover:text-foreground"
+              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-transparent px-6 py-3 text-sm font-medium leading-none text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/45 hover:text-foreground"
             >
               <span className="inline-flex h-5 w-5 items-center justify-center">
                 <LinkedInIcon className="h-5 w-5 shrink-0 translate-y-[0.5px]" />
