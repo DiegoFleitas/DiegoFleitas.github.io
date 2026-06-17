@@ -70,7 +70,7 @@ export function Background() {
       opacity: palette.wire,
     })
     wireMatRef.current = wireMat
-    const wireframe = new THREE.Mesh(new THREE.IcosahedronGeometry(2, 2), wireMat)
+    const wireframe = new THREE.Mesh(new THREE.IcosahedronGeometry(3, 2), wireMat)
     scene.add(wireframe)
 
     const pointsCount = 120
