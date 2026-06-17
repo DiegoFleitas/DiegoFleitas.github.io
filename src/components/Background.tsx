@@ -149,7 +149,11 @@ export function Background() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      className="pointer-events-none absolute inset-x-0 top-0 z-0 h-screen overflow-hidden"
+      style={{
+        maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+      }}
       aria-hidden
     >
       {/* Topographic contour base layer – theme-tinted, no gradient */}
