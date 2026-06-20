@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+@~/.claude/DiegoFleitas.github.io.local.md
+
 ## Commands
 
 ```bash
