@@ -14,7 +14,7 @@ export interface EducationEntry {
 export const education: EducationEntry[] = [
   {
     degree: 'Technologist Degree in Computer Science',
-    institution: 'Universidad de la República (UdelaR) · UTEC · DGETP‑UTU',
+    institution: 'Universidad de la República (UdelaR) · UTEC · DGETP-UTU',
     date: '2018',
     logoUrl: '/logos/udelar.png',
     bullets: [],

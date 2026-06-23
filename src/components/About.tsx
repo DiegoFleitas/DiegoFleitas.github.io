@@ -34,8 +34,12 @@ export function About() {
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-10 lg:gap-y-0">
         <div className="order-2 lg:order-none lg:col-span-5">
           <h2 className="text-2xl font-bold text-foreground">About me</h2>
-          <div className="mt-4 max-w-prose">
-            <p className="leading-7 text-muted whitespace-pre-line">{aboutSummary}</p>
+          <div className="mt-4 max-w-prose space-y-4">
+            {aboutSummary.split(/\n{2,}/).map((paragraph, index) => (
+              <p key={index} className="leading-7 text-muted">
+                {paragraph}
+              </p>
+            ))}
           </div>
         </div>
 

@@ -10,7 +10,7 @@ export const projectsApps: Project[] = [
   {
     title: 'Letterboxd × JustWatch',
     description:
-      'Search streaming availability by country across multiple providers, JustWatch-style. Ingests your Letterboxd watchlist and queries streaming-availability APIs.',
+      'A JustWatch-style tool that checks where the films on your Letterboxd watchlist are available to stream, by country and across multiple providers.',
     repoUrl: 'https://github.com/DiegoFleitas/letterboxd-movie-justwatch',
     demoUrl: 'https://movie-justwatch.fly.dev/',
   },
