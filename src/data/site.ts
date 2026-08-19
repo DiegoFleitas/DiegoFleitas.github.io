@@ -7,7 +7,7 @@ export const cvPdfUrl = `/${cvPdfDownloadFilename}` as const
 
 export const site = {
   name: 'Diego Fleitas',
-  tagline: 'Software developer transitioning to AI safety',
+  tagline: 'Software Developer',
   subline: 'Montevideo, Uruguay',
   email: 'diego.fleitas68@gmail.com',
   github: 'https://github.com/DiegoFleitas',
