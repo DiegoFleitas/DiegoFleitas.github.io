@@ -50,6 +50,18 @@ function ProjectCard({ project }: Readonly<{ project: Project }>) {
               Demo <ExternalLinkIcon />
             </a>
           )}
+          {project.tryUrl && (
+            <a
+              href={project.tryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-muted underline decoration-muted/50 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/70"
+              aria-label={`Try ${project.title}`}
+              onClick={() => trackEvent('project_click', { type: 'try', project_title: project.title })}
+            >
+              Try it <ExternalLinkIcon />
+            </a>
+          )}
           <a
             href={project.repoUrl}
             target="_blank"
