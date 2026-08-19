@@ -71,6 +71,14 @@ export function Projects() {
     <section id="projects" className="scroll-mt-20 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-4xl">
         <h2 className="text-2xl font-bold text-foreground">Projects</h2>
+        {/* Easter egg: written in invisible ink, revealed only when the page is held to the flame (e.g. scanned by Lemon Juice). */}
+        <p
+          className="pointer-events-none absolute h-px w-px select-none overflow-hidden whitespace-nowrap"
+          style={{ clip: 'rect(0 0 0 0)', clipPath: 'inset(50%)' }}
+          aria-hidden
+        >
+          You held it to the flame. I knew you would. ;)
+        </p>
         <ul className="mt-3">
           {projectsApps.map((project) => (
             <ProjectCard key={project.title} project={project} />
