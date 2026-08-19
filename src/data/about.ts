@@ -1,2 +1,7 @@
 export const aboutSummary =
-  "I'm a software developer based in Montevideo with 7 years of experience building backend systems and APIs, mainly with Node.js, TypeScript, and AWS.\n\nMy focus is system integration. I make microservices more reliable and build solid connections to third-party platforms that hold up in production.\n\nI work mostly on the backend, but I move across the stack when needed. Currently looking for Node.js / backend roles."
+  "I've spent seven years shipping production systems, mostly on the backend but moving across the stack when needed. I'm transitioning into AI safety, with a focus on behavioral red-teaming and evaluating language models. I'm also putting together an independent AI-safety lab for the spanish-speaking region, IA para el Bien."
+
+export const aboutLab = {
+  name: 'IA para el Bien',
+  url: 'https://iaparaelbien.org',
+}

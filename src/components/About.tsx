@@ -1,4 +1,4 @@
-import { aboutSummary } from '../data/about'
+import { aboutSummary, aboutLab } from '../data/about'
 import { ImageCarousel, type CarouselSlide } from './ImageCarousel'
 
 function companyBadge(src: string, alt: string): CarouselSlide['badgeLogo'] {
@@ -25,6 +25,29 @@ const aboutCarouselSlides: readonly CarouselSlide[] = [
   },
 ]
 
+// Renders about paragraphs, linking the named lab (if present) to its site.
+function renderAboutParagraph(text: string, index: number) {
+  const { name, url } = aboutLab
+  const at = text.indexOf(name)
+  if (at === -1) {
+    return <p key={index} className="leading-7 text-muted">{text}</p>
+  }
+  return (
+    <p key={index} className="leading-7 text-muted">
+      {text.slice(0, at)}
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-muted underline decoration-muted/50 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/70"
+      >
+        {name}
+      </a>
+      {text.slice(at + name.length)}
+    </p>
+  )
+}
+
 export function About() {
   return (
     <section
@@ -35,11 +58,9 @@ export function About() {
         <div className="order-2 lg:order-none lg:col-span-5">
           <h2 className="text-2xl font-bold text-foreground">About me</h2>
           <div className="mt-4 max-w-prose space-y-4">
-            {aboutSummary.split(/\n{2,}/).map((paragraph, index) => (
-              <p key={index} className="leading-7 text-muted">
-                {paragraph}
-              </p>
-            ))}
+            {aboutSummary.split(/\n{2,}/).map((paragraph, index) =>
+              renderAboutParagraph(paragraph, index)
+            )}
           </div>
         </div>
 
