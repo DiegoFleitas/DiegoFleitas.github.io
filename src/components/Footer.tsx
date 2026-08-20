@@ -93,6 +93,15 @@ export function Footer() {
           >
             <LinkedInLogo className="shrink-0" />
           </a>
+          <a
+            href="https://luma.com/user/diego_fleitas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center justify-center rounded-md px-2 text-sm text-muted transition-colors hover:text-foreground"
+            aria-label="Luma: diego_fleitas"
+          >
+            Luma
+          </a>
         </div>
       </div>
     </footer>
