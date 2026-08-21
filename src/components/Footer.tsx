@@ -57,6 +57,22 @@ function LinkedInLogo({ className }: Readonly<{ className?: string }>) {
   )
 }
 
+function LumaLogo({ className }: Readonly<{ className?: string }>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={iconSize}
+      height={iconSize}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden
+    >
+      <path d="M12 2.4c.533 4.8 4.8 8.933 9.6 9.6-4.8.667-9.067 4.8-9.6 9.6-.533-4.8-4.8-8.933-9.6-9.6 4.8-.667 9.067-4.8 9.6-9.6z" />
+    </svg>
+  )
+}
+
 export function Footer() {
   return (
     <footer className="px-4 py-8 sm:px-6">
@@ -97,10 +113,11 @@ export function Footer() {
             href="https://luma.com/user/diego_fleitas"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 items-center justify-center rounded-md px-2 text-sm text-muted transition-colors hover:text-foreground"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:text-foreground"
             aria-label="Luma: diego_fleitas"
+            onClick={() => trackEvent('contact_click', { type: 'luma' })}
           >
-            Luma
+            <LumaLogo className="shrink-0" />
           </a>
         </div>
       </div>
