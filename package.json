@@ -19,7 +19,7 @@
     "*.{ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "motion": "^12.38.0",
+    "motion": "^13.1.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "swiper": "^12.1.4",
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.59.1",
-    "@tailwindcss/vite": "^4.2.4",
+    "@tailwindcss/vite": "^4.3.3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/node": "^25.6.0",
@@ -43,10 +43,10 @@
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "lint-staged": "^17.0.7",
-    "tailwindcss": "^4.2.4",
+    "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.59.1",
-    "vite": "^8.0.16",
-    "vitest": "^4.1.8"
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   }
 }
