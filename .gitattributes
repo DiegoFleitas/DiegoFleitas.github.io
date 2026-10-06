@@ -1,0 +1,5 @@
+# Husky hooks are executed by sh, not by a shell that tolerates CRLF.
+# With core.autocrlf=true (Windows default) a checkout rewrites these to CRLF,
+# and the hook then fails with:  spawn lint-staged\r ENOENT
+# Force LF for the hooks regardless of the user's autocrlf setting.
+.husky/* text eol=lf
