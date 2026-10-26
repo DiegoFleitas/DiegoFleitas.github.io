@@ -1,4 +1,5 @@
-import { aboutSummary, aboutLab } from '../data/about'
+import type { ReactNode } from 'react'
+import { aboutSummary, aboutLinks } from '../data/about'
 import { ImageCarousel, type CarouselSlide } from './ImageCarousel'
 
 function companyBadge(src: string, alt: string): CarouselSlide['badgeLogo'] {
@@ -25,25 +26,43 @@ const aboutCarouselSlides: readonly CarouselSlide[] = [
   },
 ]
 
-// Renders about paragraphs, linking the named lab (if present) to its site.
+// Renders about paragraphs, turning each phrase listed in `aboutLinks` into an anchor.
 function renderAboutParagraph(text: string, index: number) {
-  const { name, url } = aboutLab
-  const at = text.indexOf(name)
-  if (at === -1) {
-    return <p key={index} className="leading-7 text-muted">{text}</p>
-  }
-  return (
-    <p key={index} className="leading-7 text-muted">
-      {text.slice(0, at)}
+  const parts: ReactNode[] = []
+  let rest = text
+  let anchor = 0
+
+  while (rest.length > 0) {
+    let next: { at: number; text: string; url: string } | null = null
+    for (const link of aboutLinks) {
+      const at = rest.indexOf(link.text)
+      if (at !== -1 && (next === null || at < next.at)) {
+        next = { at, text: link.text, url: link.url }
+      }
+    }
+    if (!next) {
+      parts.push(rest)
+      break
+    }
+    if (next.at > 0) parts.push(rest.slice(0, next.at))
+    const { text: linked, url } = next
+    parts.push(
       <a
+        key={anchor++}
         href={url}
         target="_blank"
         rel="noopener noreferrer"
         className="text-muted underline decoration-muted/50 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/70"
       >
-        {name}
+        {linked}
       </a>
-      {text.slice(at + name.length)}
+    )
+    rest = rest.slice(next.at + linked.length)
+  }
+
+  return (
+    <p key={index} className="leading-7 text-muted">
+      {parts}
     </p>
   )
 }

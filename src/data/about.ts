@@ -1,7 +1,13 @@
 export const aboutSummary =
-  "I've spent seven years shipping production systems, mostly on the backend but moving across the stack when needed. I'm moving into AI safety, with a focus on behavioral red-teaming and evaluating language models — most recently a base-rate study of concealed prompt injection in real web text, published with its protocol and its negative result: the concealment was a property of the web, not a signal of an attack. I'm also putting together an independent AI-safety hub for the spanish-speaking region, CHAISH."
+  "I've spent seven years working on production systems, mostly on the backend but moving across the stack when needed. Lately I've been focused on evaluating small local models and studying indirect prompt injection — most recently a pre-registered study of how often concealed injection actually appears in real ingested web text. It found invisible characters in 11.7% of the documents it sampled, mostly BOMs and emoji selectors; none of them used concealment to carry an instruction."
 
-export const aboutLab = {
-  name: 'CHAISH',
-  url: 'https://chaish.iaparaelbien.org',
-}
+/**
+ * Phrases inside `aboutSummary` that link out. First match wins; the phrase
+ * disappears from the plain text and comes back as an anchor.
+ */
+export const aboutLinks = [
+  {
+    text: 'pre-registered study',
+    url: 'https://github.com/DiegoFleitas/prompt-injection-base-rate',
+  },
+] as const
