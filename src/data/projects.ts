@@ -15,7 +15,7 @@ export const projectsApps: Project[] = [
   {
     title: 'Concealed prompt injection: a base-rate study',
     description:
-      'How often does real ingested web text actually carry a concealed instruction addressed to a model — and is that rarer than a detector’s false-positive rate? A pre-registered protocol, 290 pages of agent-ingest text, one measurement: 11.7% contained invisible characters, almost all benign (BOMs, emoji selectors, CJK line-breaking), and in every one of those documents the concealment channel carried no instruction. A positive control against published attack corpora (InjecAgent, BIPIA) bounds that null: 30/30 when the payload is encoded into a channel, 0/30 when it is visible text.',
+      'How often does real ingested web text actually carry a concealed instruction addressed to a model — and is that rarer than a detector’s false-positive rate? A pre-registered protocol, 290 pages of agent-ingest text, one measurement: 11.7% contained invisible characters, almost all benign (BOMs, emoji selectors, CJK line-breaking), and in every one of those documents the concealment channel carried no instruction. A positive control against published attack corpora (InjecAgent, BIPIA) shows what the detector can see: 30/30 when the payload is encoded into a channel, 0/30 when it is visible text.',
     links: [
       {
         text: '11.7%',
