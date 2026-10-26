@@ -1,3 +1,4 @@
+import { LinkedText } from './LinkedText'
 import { projectsApps } from '../data/projects'
 import { trackEvent } from '../utils/analytics'
 import type { Project } from '../data/projects'
@@ -32,9 +33,11 @@ function ProjectCard({ project }: Readonly<{ project: Project }>) {
           <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
             {project.title}
           </h3>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-            {project.description}
-          </p>
+          <LinkedText
+            text={project.description}
+            links={project.links}
+            className="mt-2 max-w-3xl text-sm leading-relaxed text-muted sm:text-base"
+          />
         </div>
 
         <div className="flex shrink-0 items-center gap-4 pt-0.5">
