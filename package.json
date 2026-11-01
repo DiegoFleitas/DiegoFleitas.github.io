@@ -19,7 +19,7 @@
     "*.{ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "motion": "^14.0.0",
+    "motion": "^14.7.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "swiper": "^14.3.0",
@@ -46,7 +46,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.59.1",
-    "vite": "^8.3.4",
-    "vitest": "^5.0.3"
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
   }
 }
