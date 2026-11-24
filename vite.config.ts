@@ -9,7 +9,7 @@ import react from '@vitejs/plugin-react'
  * those bytes and nothing else (no 'unsafe-inline').
  */
 const inlineScriptHashes = (html: string) =>
-  [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
+  [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)].map(
     // The HTML parser normalises CRLF to LF inside script data, so hash that form.
     ([, source]) =>
       `'sha256-${createHash('sha256').update(source.replace(/\r\n?/g, '\n'), 'utf8').digest('base64')}'`,

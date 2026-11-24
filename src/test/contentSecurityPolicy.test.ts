@@ -14,10 +14,15 @@ describe('production Content-Security-Policy', () => {
 
   it('allows the inline theme script by hash instead of unsafe-inline', () => {
     const policy = buildPolicyFor(indexHtml)
-    const inlineScript = /<script>([\s\S]*?)<\/script>/.exec(indexHtml)
-    expect(inlineScript).not.toBeNull()
+    const scriptOpen = indexHtml.indexOf('<script>')
+    const scriptClose = indexHtml.indexOf('</script>', scriptOpen)
+    expect(scriptOpen).toBeGreaterThan(-1)
+    expect(scriptClose).toBeGreaterThan(scriptOpen)
 
-    const hash = createHash('sha256').update(inlineScript![1].replace(/\r\n?/g, '\n'), 'utf8').digest('base64')
+    const themeScript = indexHtml.slice(scriptOpen + '<script>'.length, scriptClose)
+    expect(themeScript).toContain("localStorage.getItem('theme')")
+
+    const hash = createHash('sha256').update(themeScript.replace(/\r\n?/g, '\n'), 'utf8').digest('base64')
     expect(policy).toContain(`'sha256-${hash}'`)
     expect(policy).not.toContain('script-src \'self\' \'unsafe-inline\'')
   })
