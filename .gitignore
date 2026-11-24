@@ -28,3 +28,7 @@ dist-ssr
 .pnpm-store/
 
 .claude/settings.local.json
+
+# Test-runner and incremental build output
+test-results
+*.tsbuildinfo

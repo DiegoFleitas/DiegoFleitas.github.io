@@ -1,36 +1,58 @@
 /// <reference types="vitest/config" />
+import { createHash } from 'node:crypto'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { context7HiddenNote, context7SiteKey } from './src/data/site.ts'
 
-// Injects the tag and note into the shared HTML template at build time, so the
-// built HTML carries them without any client-side JavaScript.
-const context7Ask = {
-  name: 'context7-ask',
+/**
+ * Every inline <script> in the built HTML is hashed so the CSP can allow exactly
+ * those bytes and nothing else (no 'unsafe-inline').
+ */
+const inlineScriptHashes = (html: string) =>
+  [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
+    // The HTML parser normalises CRLF to LF inside script data, so hash that form.
+    ([, source]) =>
+      `'sha256-${createHash('sha256').update(source.replace(/\r\n?/g, '\n'), 'utf8').digest('base64')}'`,
+  )
+
+/**
+ * Production Content-Security-Policy, delivered as <meta http-equiv> because GitHub
+ * Pages cannot set response headers. External origins are limited to the two the site
+ * actually loads: Google Fonts (index.html) and GA4 gtag.js (src/utils/analytics.ts).
+ */
+export const contentSecurityPolicyFor = (html: string) =>
+  [
+    "default-src 'self'",
+    `script-src 'self' ${inlineScriptHashes(html).join(' ')} https://www.googletagmanager.com`.replace('  ', ' '),
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: blob:",
+    "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ')
+
+// Injected into built HTML only: an inline policy in index.html would also block the
+// Vite dev server's inline React-refresh preamble.
+const contentSecurityPolicyMeta = {
+  name: 'content-security-policy-meta',
+  apply: 'build' as const,
   transformIndexHtml: {
     order: 'post' as const,
     handler(html: string) {
-      const metaTag = `    <meta name="context7-site-verification" content="${context7SiteKey}" />`
-      const note = [
-        '    <blockquote data-context7-ask="true" aria-hidden="true" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">',
-        '      <h2>Search</h2>',
-        `      <p>${context7HiddenNote}</p>`,
-        '    </blockquote>',
-      ].join('\n')
-
-      if (!html.includes('</head>') || !html.includes('<body>')) {
-        throw new Error('context7-ask: index.html is missing <head> or <body>')
+      if (!html.includes('<head>')) {
+        throw new Error('content-security-policy-meta: index.html is missing <head>')
       }
-      return html
-        .replace('</head>', `${metaTag}\n  </head>`)
-        .replace('<body>', `<body>\n${note}`)
+      const policy = contentSecurityPolicyFor(html)
+      const meta = `<meta http-equiv="Content-Security-Policy" content="${policy}" />`
+      return html.replace('<head>', `<head>\n    ${meta}`)
     },
   },
 }
 
 export default defineConfig({
-  plugins: [context7Ask, tailwindcss(), react()],
+  plugins: [contentSecurityPolicyMeta, tailwindcss(), react()],
   // Served from site root (e.g. diegofleitas.github.io). For project site at /portfolio/, use base: '/portfolio/'
   base: '/',
   server: { host: true },
