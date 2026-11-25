@@ -32,3 +32,6 @@ dist-ssr
 # Test-runner and incremental build output
 test-results
 *.tsbuildinfo
+
+# Claude Code project-local overrides (J-07)
+/CLAUDE.local.md
